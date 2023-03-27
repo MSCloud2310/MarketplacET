@@ -71,7 +71,7 @@ public class ApirestController {
         return response;
     }
 
-    @GetMapping("/items")
+    @GetMapping("/categoria")
     public String traerCategoria(@RequestParam int tipo) {
         String response = restTemplate.getForObject("http://servicioProductos/categoria", String.class, tipo);
         return response;
