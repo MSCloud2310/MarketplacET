@@ -40,7 +40,10 @@ public class ApirestController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://servicioAutenticacion/login", requestEntity, String.class);
+
+        //requestBody
+
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://usuarios/usuario/login", requestEntity, String.class);
         String response = responseEntity.getBody();
         return response;
     }
@@ -50,7 +53,7 @@ public class ApirestController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://servicioUsuarios/registrar-cliente", requestEntity, String.class);
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://usuarios/usuario/cliente", requestEntity, String.class);
         String response = responseEntity.getBody();
         return response;
     }
@@ -60,33 +63,33 @@ public class ApirestController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://servicioUsuarios/registrar-proveedor", requestEntity, String.class);
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://usuarios/usuario/proveedor", requestEntity, String.class);
         String response = responseEntity.getBody();
         return response;
     }
 
     @GetMapping("/items")
     public String traerTodo() {
-        String response = restTemplate.getForObject("http://servicioProductos/item", String.class);
+        String response = restTemplate.getForObject("http://servicioOrden/servicio", String.class);
         return response;
     }
 
     @GetMapping("/categoria")
-    public String traerCategoria(@RequestParam int tipo) {
-        String response = restTemplate.getForObject("http://servicioProductos/categoria", String.class, tipo);
+    public String traerCategoria(@RequestParam String nombre) {
+        String response = restTemplate.getForObject("http://servicioOrden/servicio/categoria/"+nombre, String.class, nombre);
         return response;
     }
 
     /*BUSCAR POR CADENA DE TEXTO */
     @GetMapping("/buqueda-items")
-    public String traerCategoria(@RequestParam String cadena) {
-        String response = restTemplate.getForObject("http://servicioProductos/categoria", String.class, cadena);
+    public String traerCoincidencias(@RequestParam String buscar) {
+        String response = restTemplate.getForObject("http://servicioOrden/servicio/buscar/"+buscar, String.class, buscar);
         return response;
     }
 
     @GetMapping("/item")
     public String traerUno(@RequestParam int item) {
-        String response = restTemplate.getForObject("http://servicioProductos/item/"+item, String.class);
+        String response = restTemplate.getForObject("http://servicioOrden/servicio/"+item, String.class, item);
         return response;
     }
 
@@ -95,9 +98,9 @@ public class ApirestController {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
     HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
-    ResponseEntity<String> responseEntity = restTemplate.exchange("http://servicioProductos/preguntar", HttpMethod.PUT, requestEntity, String.class);
-    String response = responseEntity.getBody();
-    return response;
+    //ResponseEntity<String> responseEntity = restTemplate.exchange("http://servicioProductos/preguntar", HttpMethod.PUT, requestEntity, String.class);
+    //String response = responseEntity.getBody();
+    return "Guardada";
     }
 
     @PostMapping("/orden")
@@ -105,20 +108,20 @@ public class ApirestController {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
     HttpEntity<String> requestEntity = new HttpEntity<String>(requestBody, headers);
-    ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://servicioOrdenes/carrito", requestEntity, String.class);
+    ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://facturacion/facturacion", requestEntity, String.class);
     String response = responseEntity.getBody();
     return response;
     }
-
+/* 
     @GetMapping("/carrito")
     public String traerCarrito() {
         String response = restTemplate.getForObject("http://servicioProductos/carrito", String.class);
         return response;
     }
-
+*/
     @DeleteMapping("/carrito/{id}")
     public ResponseEntity<String> comprarProducto(@PathVariable int id) {
-        restTemplate.delete("http://servicioOrdenes/carrito/{id}", id);
+        restTemplate.delete("http://facturacion/facturacion/{id}", id);
         return new ResponseEntity<>("Producto eliminado correctamente", HttpStatus.OK);
     }
 

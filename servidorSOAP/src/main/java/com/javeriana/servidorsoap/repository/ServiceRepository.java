@@ -13,7 +13,7 @@ public class ServiceRepository {
     @PostConstruct
     public void initData() {
         Servicio service = new Servicio();
-        service.setId(1);
+        service.setId(1);   
         service.setNombre("Peliculas");
         services.put(service.getId(), service);
         Servicio service1 = new Servicio();

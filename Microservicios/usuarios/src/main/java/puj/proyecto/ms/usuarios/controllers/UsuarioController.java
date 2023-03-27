@@ -80,6 +80,12 @@ public class UsuarioController {
         // return (idMetodoPago != null) ? clienteService.agregarClienteComplete(cliente, idMetodoPago): clienteService.agregarClienteBasic(cliente); 
     // }
 
+    @PostMapping("/login")
+    public String loginUser(@RequestBody Usuario user) {
+        return usuarioService.login(user);
+    }
+
+
     @PostMapping("/cliente")
     public Cliente agregarClienteBasic(@RequestBody Cliente cliente) {
         return clienteService.agregarClienteBasic(cliente);
