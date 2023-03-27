@@ -10,6 +10,6 @@ mvn exec:java -D co.edu.javeriana.ws.rest.client.RestClientMain
 ```console
 mvn spring-boot:run
 ```
-## Compilar calculadora.
+## Compilar Gateway.
 ```console
 mvn spring-boot:run
