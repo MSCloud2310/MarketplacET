@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="2.1" xmlns="http://java.sun.com/xml/ns/jaxb">
+  <!--
+
+Este archivo ha sido generado por la arquitectura JavaTM para la implantación de la referencia de enlace (JAXB) XML v2.3.2 
+Visite <a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a> 
+Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
+Generado el: 2023.03.27 a las 12:42:09 AM COT 
+
+  -->
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.proyecto.com/ecoturist/servicio">
+    <schemaBindings map="false">
+      <package name="com.proyecto.ecoturist.servicio"/>
+    </schemaBindings>
+    <bindings scd="tns:getServicioRequest">
+      <class ref="com.proyecto.ecoturist.servicio.GetServicioRequest"/>
+    </bindings>
+    <bindings scd="tns:getServicioResponse">
+      <class ref="com.proyecto.ecoturist.servicio.GetServicioResponse"/>
+    </bindings>
+    <bindings scd="~tns:servicio">
+      <class ref="com.proyecto.ecoturist.servicio.Servicio"/>
+    </bindings>
+  </bindings>
+</bindings>
+
