@@ -1,31 +1,33 @@
 package puj.proyecto.ms.usuarios.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
-@MappedSuperclass
+@Entity
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nombre;
     private String correo;
     private String password;
     private Integer edad;
     private String foto;
     private String descripcion;
+    private String rol;
 
-    public Usuario(String nombre, String correo, String password,  Integer edad, String foto,
-            String descripcion) {
+    public Usuario(String nombre, String correo, String password, Integer edad, String foto,
+            String descripcion, String rol) {
         this.nombre = nombre;
         this.correo = correo;
         this.password = password;
         this.edad = edad;
         this.foto = foto;
         this.descripcion = descripcion;
+        this.rol = rol;
     }
 
     public Usuario() {
@@ -45,14 +47,6 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 
     public String getCorreo() {
@@ -87,13 +81,26 @@ public class Usuario {
         this.foto = foto;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
     @Override
     public String toString() {
         return "Cliente [id=" + id + ", nombre=" + nombre + ", correo=" + correo + ", edad=" + edad
                 + ", descripcion=" + descripcion + "]";
     }
 
-    
-
 }
-

@@ -14,6 +14,7 @@ public class MetodoPagoService {
     private MetodoPagoRepository metodoPagoRepository;
 
     public List<MetodoPago> obtenerMetodosPago() {
+        System.out.println(metodoPagoRepository.findAll());
         return (List<MetodoPago>) metodoPagoRepository.findAll();
     }
 

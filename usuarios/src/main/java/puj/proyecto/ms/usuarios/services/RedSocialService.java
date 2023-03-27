@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import puj.proyecto.ms.usuarios.model.Proveedor;
 import puj.proyecto.ms.usuarios.model.RedSocial;
 import puj.proyecto.ms.usuarios.repository.RedSocialRepository;
 
@@ -12,6 +13,8 @@ import puj.proyecto.ms.usuarios.repository.RedSocialRepository;
 public class RedSocialService {
     @Autowired
     private RedSocialRepository redSocialRepository;
+    @Autowired
+    private ProveedorService proveedorService;
 
     public List<RedSocial> obtenerRedesSociales() {
         return (List<RedSocial>) redSocialRepository.findAll();
@@ -25,7 +28,13 @@ public class RedSocialService {
         return redSocialRepository.findByNombre(nombre);
     }
 
-    public RedSocial agregarRedSocial(RedSocial redSocial) {
+    public RedSocial agregarRedSocial(RedSocial redSocial, Long idProveedor) {
+        Proveedor proveedor = proveedorService.obtenerProveedorId(idProveedor);
+
+        if (proveedor != null) {
+            redSocial.setProveedor(proveedor);
+        }
+
         return redSocialRepository.save(redSocial);
     }
 
