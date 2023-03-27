@@ -1,8 +1,15 @@
 package puj.proyecto.ms.usuarios.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -11,8 +18,12 @@ public class MetodoPago {
     @Id
     @GeneratedValue
     private Long id;
-
     private String nombre;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "metodosPago")
+    private  List<Cliente> cliente;
+
 
     public MetodoPago() {
     }

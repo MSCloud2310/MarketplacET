@@ -11,9 +11,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "proveedor")
 public class Proveedor extends Usuario {
-
     private Long telefono;
     private String pagina_web;
+    private static String rol = "Proveedor";
 
     @JsonIgnore
     @OneToMany(mappedBy = "proveedor")
@@ -44,17 +44,10 @@ public class Proveedor extends Usuario {
     }
 
     public Proveedor(String nombre, String correo, String password, Integer edad, String foto, String descripcion,
-            Long telefono, String pagina_web, List<RedSocial> redes_sociales) {
-        super(nombre, correo, password, edad, foto, descripcion);
+            Long telefono, String pagina_web) {
+        super(nombre, correo, password, edad, foto, descripcion, rol);
         this.telefono = telefono;
         this.pagina_web = pagina_web;
-        this.redes_sociales = redes_sociales;
-    }
-
-    public Proveedor(Long telefono, String pagina_web, List<RedSocial> redes_sociales) {
-        this.telefono = telefono;
-        this.pagina_web = pagina_web;
-        this.redes_sociales = redes_sociales;
     }
 
     public Proveedor() {

@@ -2,8 +2,9 @@ package puj.proyecto.ms.usuarios.controllers;
 
 import java.util.List;
 
-import org.hibernate.cfg.Environment;
+import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,10 +22,8 @@ import puj.proyecto.ms.usuarios.services.MetodoPagoService;
 public class MetodoPagoController {
     @Autowired
     Environment environment;
-
     @Autowired
     private MetodoPagoService metodoPagoService;
-
 
     @GetMapping()
     public List<MetodoPago> obtenerMetodosPago() {
@@ -42,7 +41,7 @@ public class MetodoPagoController {
         return metodoPagoService.obtenerMetodoPagoNombre(nombre);
     }
 
-    @PostMapping()
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public MetodoPago agregarMetodoPago(@RequestBody MetodoPago redSocial) {
         return metodoPagoService.agregarMetodoPago(redSocial);
     }

@@ -1,24 +1,22 @@
 package puj.proyecto.ms.usuarios.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "redes_sociales")
+@Table(name = "red_social")
 public class RedSocial {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
     private String url;
 
-    @JsonIgnore
     @ManyToOne
     private Proveedor proveedor;
 
@@ -26,11 +24,9 @@ public class RedSocial {
 
     }
 
-    public RedSocial(Long id, String nombre, String url, Proveedor proveedor) {
-        this.id = id;
+    public RedSocial(String nombre, String url) {
         this.nombre = nombre;
         this.url = url;
-        this.proveedor = proveedor;
     }
 
     public Long getId() {

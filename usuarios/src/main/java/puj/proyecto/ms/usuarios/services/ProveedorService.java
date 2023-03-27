@@ -12,6 +12,8 @@ import puj.proyecto.ms.usuarios.repository.ProveedorRepository;
 public class ProveedorService {
     @Autowired
     private ProveedorRepository proveedorRepository;
+    @Autowired
+    private UsuarioService usuarioService;
 
     public List<Proveedor> obtenerProveedor() {
         return (List<Proveedor>) proveedorRepository.findAll();
@@ -25,8 +27,11 @@ public class ProveedorService {
         return proveedorRepository.findByNombre(nombre);
     }
 
-    public Proveedor agregarProveedor(Proveedor proveedor) {
-        return proveedorRepository.save(proveedor);
+    public Proveedor agregarProveedor(Proveedor proveedor) {   
+        Proveedor provNew = new Proveedor(proveedor.getNombre(), proveedor.getCorreo(), proveedor.getPassword(), proveedor.getEdad(), proveedor.getFoto(), proveedor.getDescripcion(), proveedor.getTelefono(), proveedor.getPagina_web()); 
+        usuarioService.agregarUsuario(provNew);
+
+        return provNew;
     }
 
     public Proveedor actualizarProveedor(Long id, Proveedor newProveedor) {

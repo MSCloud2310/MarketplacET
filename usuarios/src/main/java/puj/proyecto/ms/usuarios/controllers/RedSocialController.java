@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import puj.proyecto.ms.usuarios.model.RedSocial;
-import puj.proyecto.ms.usuarios.repository.RedSocialRepository;
 import puj.proyecto.ms.usuarios.services.RedSocialService;
 
 @RestController
@@ -44,9 +43,9 @@ public class RedSocialController {
         return redSocialService.obtenerRedSocialNombre(nombre);
     }
 
-    @PostMapping()
-    public RedSocial agregarRedSocial(@RequestBody RedSocial redSocial) {
-        return redSocialService.agregarRedSocial(redSocial);
+    @PostMapping("/proveedor/{id}")
+    public RedSocial agregarRedSocial(@RequestBody RedSocial redSocial, @PathVariable Long id) {
+        return redSocialService.agregarRedSocial(redSocial, id);
     }
 
     @PutMapping("/{id}")
