@@ -162,7 +162,7 @@ public class RestClientMain {
 						try{
 							Client client = ClientBuilder.newClient();
 							WebTarget webTarget = client.target(MY_SERVER_URL);
-							WebTarget itemsWebTarget = webTarget.path("items");
+							WebTarget itemsWebTarget = webTarget.path("item");
 
 							// Agregar el parámetro de query "id"
 							WebTarget itemWebTarget = itemsWebTarget.queryParam("id", tipoItem);
