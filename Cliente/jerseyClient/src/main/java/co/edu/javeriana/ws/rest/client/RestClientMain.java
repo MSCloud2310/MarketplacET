@@ -16,32 +16,34 @@ import jakarta.ws.rs.core.Response;
 public class RestClientMain {
 	public static final String MY_SERVER_URL="http://localhost:8888/";
 	public static String username = "";
+	public static String rol="";
 	public static void main(String args[]){
 	
 		try (Scanner scanner = new Scanner(System.in)) {
 			boolean exit = false;
 			boolean loggedIn = false;
 			String password = "";
+			int option=0;
 
 			while (!exit) {
-			    System.out.println("Bienvenido a ECOTURIST:");
+				if(!loggedIn){
+					System.out.println("Bienvenido a ECOTURIST:");
 			    System.out.println("1. Iniciar sesión");
 			    System.out.println("2. Registrarse");
 			    System.out.println("3. Cerrar Sesion");
 				System.out.println("4. Salir");
-
-			    int option = scanner.nextInt();
-
+			    option = scanner.nextInt();
+				}
 			    switch (option) {
 			        case 1:
 			            if (loggedIn) {
-			                if (authentication(username, password).equals("cliente")) {
+			                if (rol.equals("Cliente")) {
 			                    menuCliente();
 								loggedIn=false;
 								username="";
 								System.out.println("Cierre Exitoso.");
 			                    
-			                }else if (authentication(username, password).equals("proveedor")) {
+			                }else if (rol.equals("Proveedor")) {
 			                    menuProveedor();
 								loggedIn=false;
 								username="";
@@ -53,11 +55,13 @@ public class RestClientMain {
 			                String inputUsername = scanner.next();
 			                System.out.println("Contraseña:");
 			                String inputPassword = scanner.next();
-			                if (authentication(inputUsername, inputPassword).equals("cliente")) {
+			                if (authentication(inputUsername, inputPassword).equals("Cliente")) {
+								rol="Cliente";
 			                    loggedIn = true;
 								username=inputUsername;
 			                    System.out.println("Has iniciado sesión exitosamente como cliente.");
-			                }else if (authentication(inputUsername, inputPassword).equals("proveedor")) {
+			                }else if (authentication(inputUsername, inputPassword).equals("Proveedor")) {
+								rol="Proveedor";
 			                    loggedIn = true;
 								username=inputUsername;
 			                    System.out.println("Has iniciado sesión exitosamente como proveedor.");
@@ -71,7 +75,18 @@ public class RestClientMain {
 			            if (loggedIn) {
 			                System.out.println("Ya has iniciado sesión como " + username + ". Debes cerrar sesión para registrarte con una cuenta diferente.");
 			            } else {
-							registroCliente();
+							System.out.println("Cliente o provedor? 1 o 2");
+							int opt = scanner.nextInt();
+							switch(opt){
+								case 1:
+								registroCliente();
+								break;
+								case 2:
+								registroProveedor();
+								break;
+								default:
+								break;
+							}
 			            }
 			            break;
 			        case 3:
@@ -147,20 +162,20 @@ public class RestClientMain {
 							}catch(Exception e){}
 						break;
 			        case 2:
-							System.out.println("SELECCIONE UN TIPO:");
-							System.out.println("1. Alojamiento");
-							System.out.println("2. Transporte");
-							System.out.println("3. Paseo Turistico");
-							System.out.println("4. Ver un producto");
-							System.out.println("5. Ver un producto");
-							int tipoItem = scanner.nextInt();
+							System.out.println("ESCRIBA UN TIPO:");
+							System.out.println("-Alojamiento");
+							System.out.println("-Transporte");
+							System.out.println("-Paseo Ecológico");
+							System.out.println("-Alimentacion");
+							System.out.println("<escriba la cadena>");
+							String nombre = scanner.next();
 							try{
 								Client client = ClientBuilder.newClient();
 								WebTarget webTarget = client.target(MY_SERVER_URL);
 								WebTarget itemsWebTarget = webTarget.path("categoria");
 
 								// Agregar el parámetro de query "id"
-								WebTarget itemWebTarget = itemsWebTarget.queryParam("id", tipoItem);
+								WebTarget itemWebTarget = itemsWebTarget.queryParam("nombre", nombre);
 
 								Invocation.Builder invocationBuilder = itemWebTarget.request(MediaType.APPLICATION_JSON);
 								Response response = invocationBuilder.get();
@@ -180,7 +195,7 @@ public class RestClientMain {
 								WebTarget itemsWebTarget = webTarget.path("buqueda-items");
 
 								// Agregar el parámetro de query "id"
-								WebTarget itemWebTarget = itemsWebTarget.queryParam("id", buscar);
+								WebTarget itemWebTarget = itemsWebTarget.queryParam("buscar", buscar);
 
 								Invocation.Builder invocationBuilder = itemWebTarget.request(MediaType.APPLICATION_JSON);
 								Response response = invocationBuilder.get();
@@ -199,10 +214,6 @@ public class RestClientMain {
 						break;
 						
 					case 5:
-
-
-
-
 						return;
 			        default:
 			            System.out.println("Opción inválida.");
@@ -214,6 +225,21 @@ public class RestClientMain {
 	}
 
 	private static void menuProducto(int id) {
+
+		Client client_ = ClientBuilder.newClient();
+								WebTarget webTarget_ = client_.target(MY_SERVER_URL);
+								WebTarget authWebTarget_ = webTarget_.path("item").queryParam("item",id);
+								//crea JSON:
+								
+								//realiza peticion
+								Invocation.Builder invocationBuilder_ = authWebTarget_.request(MediaType.APPLICATION_JSON);
+								Response response_ = invocationBuilder_.get();
+								//lee contenido textual
+								String infoProducto_=response_.readEntity(String.class);
+
+		System.out.println("PRODUCTO: ////////\n"+infoProducto_);
+
+
 
 		try (Scanner scanner = new Scanner(System.in)) {
 			while (true) {
@@ -358,12 +384,12 @@ public class RestClientMain {
 			WebTarget authWebTarget = webTarget.path("register-cliente");
 			//crea JSON:
 			JSONObject registerJson = new JSONObject();			
-			registerJson.put("user", username);
+			registerJson.put("nombre", username);
 			registerJson.put("password", password);
-			registerJson.put("password", age);
-			registerJson.put("password", info);
-			String rol="cliente";
-			registerJson.put("password", rol);
+			registerJson.put("edad", age);
+			registerJson.put("descripcion", info);
+			String rol="Cliente";
+			registerJson.put("rol", rol);
 			//realiza peticion
 			Invocation.Builder invocationBuilder = authWebTarget.request(MediaType.APPLICATION_JSON);
 			Response response = invocationBuilder.post(Entity.entity(registerJson.toString(), MediaType.APPLICATION_JSON));
@@ -385,18 +411,18 @@ public class RestClientMain {
 		try{
 			Client client = ClientBuilder.newClient();
 			WebTarget webTarget = client.target(MY_SERVER_URL);
-			WebTarget authWebTarget = webTarget.path("register-cliente");
+			WebTarget authWebTarget = webTarget.path("register-proveedor");
 			//crea JSON:
 			JSONObject registerJson = new JSONObject();			
-			registerJson.put("user", username);
+			registerJson.put("nombre", username);
 			registerJson.put("password", password);
-			registerJson.put("password", age);
-			registerJson.put("password", info);
-			registerJson.put("password", tel);
-			registerJson.put("password", web);
-			registerJson.put("password", social);
-			String rol="proveedor";
-			registerJson.put("password", rol);
+			registerJson.put("edad", age);
+			registerJson.put("descripcion", info);
+			registerJson.put("telefono", tel);
+			registerJson.put("pagina_web", web);
+			//registerJson.put("social", social);
+			String rol="Proveedor";
+			registerJson.put("rol", rol);
 
 			//realiza peticion
 			Invocation.Builder invocationBuilder = authWebTarget.request(MediaType.APPLICATION_JSON);
@@ -422,7 +448,7 @@ public class RestClientMain {
 			WebTarget webTarget = client.target(MY_SERVER_URL);
 			WebTarget authWebTarget = webTarget.path("login");
 			JSONObject loginJson = new JSONObject();			
-			loginJson.put("user", user);
+			loginJson.put("nombre", user);
 			loginJson.put("password", password);			
 			Invocation.Builder invocationBuilder = authWebTarget.request(MediaType.APPLICATION_JSON);
 			Response response = invocationBuilder.post(Entity.entity(loginJson.toString(), MediaType.APPLICATION_JSON));

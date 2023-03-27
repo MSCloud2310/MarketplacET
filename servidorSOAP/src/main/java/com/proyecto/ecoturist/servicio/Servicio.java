@@ -8,10 +8,17 @@
 
 package com.proyecto.ecoturist.servicio;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
+import lombok.Getter;
+
+import java.io.Serializable;
 
 
 /**
@@ -51,7 +58,10 @@ import jakarta.xml.bind.annotation.XmlType;
     "foto",
     "nombre"
 })
-public class Servicio {
+
+
+public class Servicio implements Serializable {
+
 
     protected long id;
     protected int codigo;
@@ -217,4 +227,7 @@ public class Servicio {
         this.nombre = value;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

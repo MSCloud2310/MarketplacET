@@ -46,4 +46,14 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
         return "El cliente con " + id + " ha sido eliminado satisfactoriamente.";
     }
+
+    public String login (Usuario user) {
+        System.out.println("datosss" + user.getNombre() + user.getPassword());
+        try{
+            Usuario userExits = usuarioRepository.findByNombreAndPassword(user.getNombre(), user.getPassword());
+            return userExits.getRol();
+        }catch(Exception e){
+            return "no existe";
+        }
+    }
 }
