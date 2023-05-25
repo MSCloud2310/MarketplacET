@@ -1,0 +1,10 @@
+javeriana/ms/facturacion/repository/OrdenItemRepository.class
+javeriana/ms/facturacion/model/Calificacion.class
+javeriana/ms/facturacion/controller/FacturacionController.class
+javeriana/ms/facturacion/client/ClienteEureka.class
+javeriana/ms/facturacion/FacturacionApplication.class
+javeriana/ms/facturacion/model/Orden_Item.class
+javeriana/ms/facturacion/repository/OrdenRepository.class
+javeriana/ms/facturacion/model/Orden.class
+javeriana/ms/facturacion/service/OrdenService.class
+javeriana/ms/facturacion/service/OrdenItemService.class

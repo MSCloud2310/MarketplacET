@@ -31,9 +31,9 @@ public class RedSocialService {
     public RedSocial agregarRedSocial(RedSocial redSocial, Long idProveedor) {
         Proveedor proveedor = proveedorService.obtenerProveedorId(idProveedor);
 
-        if (proveedor != null) {
-            redSocial.setProveedor(proveedor);
-        }
+        // if (proveedor != null) {
+        // redSocial.setProveedor(proveedor);
+        // }
 
         return redSocialRepository.save(redSocial);
     }
@@ -43,7 +43,7 @@ public class RedSocialService {
 
         redSocial.setNombre(newRedSocial.getNombre());
         redSocial.setUrl(newRedSocial.getUrl());
-        redSocial.setProveedor(newRedSocial.getProveedor());
+        // redSocial.setProveedor(newRedSocial.getProveedor());
 
         return redSocialRepository.save(redSocial);
     }

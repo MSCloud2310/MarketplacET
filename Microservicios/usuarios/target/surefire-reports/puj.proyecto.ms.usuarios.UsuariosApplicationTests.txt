@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: puj.proyecto.ms.usuarios.UsuariosApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 30.664 s - in puj.proyecto.ms.usuarios.UsuariosApplicationTests

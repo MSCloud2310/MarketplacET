@@ -17,7 +17,11 @@ import puj.proyecto.ms.servicio.model.Alojamiento;
 import puj.proyecto.ms.servicio.model.PaseoEcologico;
 import puj.proyecto.ms.servicio.model.Servicio;
 import puj.proyecto.ms.servicio.model.Transporte;
+import puj.proyecto.ms.servicio.services.AlimentacionService;
+import puj.proyecto.ms.servicio.services.AlojamientoService;
+import puj.proyecto.ms.servicio.services.PaseoEcologicoService;
 import puj.proyecto.ms.servicio.services.ServicioService;
+import puj.proyecto.ms.servicio.services.TransporteService;
 
 @RestController
 @RequestMapping("/servicio")
@@ -27,19 +31,20 @@ public class ServicioController {
     Environment environment;
 
     @Autowired
-    private ServicioService servicioService;  
+    private ServicioService servicioService;
 
     @Autowired
-    private AlojamientoController alojamientoController;  
+    private AlojamientoService alojamientoService;
 
     @Autowired
-    private PaseoEcologicoController paseoEcologicoController;  
-    
-    @Autowired
-    private AlimentacionController alimentacionController;  
+    private PaseoEcologicoService paseoEcologicoService;
 
     @Autowired
-    private TransporteController transporteController;  
+    private AlimentacionService alimentacionService;
+
+    @Autowired
+    private TransporteService transporteService;
+
     @GetMapping()
     public List<Servicio> obtenerServicios() {
         return servicioService.obtenerServicios();
@@ -54,6 +59,7 @@ public class ServicioController {
     public List<Servicio> obtenerServicioCategoria(@PathVariable String categoria) {
         return servicioService.obtenerServicioCategoria(categoria);
     }
+
     @GetMapping("/buscar/{cadena}")
     public List<Servicio> obtenerServicioTexto(@PathVariable String cadena) {
         return servicioService.obtenerServicioTexto(cadena);
@@ -61,22 +67,22 @@ public class ServicioController {
 
     @PostMapping("/agregar-alojamiento")
     public Servicio agregarAlojamiento(@RequestBody Alojamiento alojamiento) {
-        return alojamientoController.agregarAlojamiento(alojamiento);
+        return alojamientoService.agregarAlojamiento(alojamiento);
     }
 
     @PostMapping("/agregar-paseo-ecologico")
     public Servicio agregarPaseoEcologico(@RequestBody PaseoEcologico paseoEcologico) {
-        return paseoEcologicoController.agregarPaseoEcologico(paseoEcologico);
+        return paseoEcologicoService.agregarPaseoEcologico(paseoEcologico);
     }
 
     @PostMapping("/agregar-alimentacion/tipo/{id}")
-    public Servicio agregarAlimentacion(@RequestBody Alimentacion alimentacion,@PathVariable Long id ) {
-        return alimentacionController.agregarAlimentacion(alimentacion, id);
+    public Servicio agregarAlimentacion(@RequestBody Alimentacion alimentacion, @PathVariable Long id) {
+        return alimentacionService.agregarAlimentacion(alimentacion, id);
     }
 
     @PostMapping("/agregar-transporte/tipo/{id}")
-    public Servicio agregarTransporte(@RequestBody Transporte transporte,@PathVariable Long id) {
-        return transporteController.agregarTransporte(transporte, id);
+    public Servicio agregarTransporte(@RequestBody Transporte transporte, @PathVariable Long id) {
+        return transporteService.agregarTransporte(transporte, id);
     }
 
     @PostMapping("/agregar/servicio")
@@ -85,16 +91,17 @@ public class ServicioController {
     }
 
     // @PutMapping("/actualizar/servicio/{id}")
-    // public Servicio actualizaServicio(@PathVariable Long id, @RequestBody Servicio newServicio) {
-    //     Servicio servicio = servicioService.obtenerServicioId(id).orElseThrow();
-        
-    //     // servicio.setNombre(newServicio.getNombre());
-    //     // servicio.setPrecio(newServicio.getPrecio());
-    //     // servicio.setProveedor(newServicio.getProveedor());
-    //     // servicio.setDescripcion(newServicio.getDescripcion());
-    //     // servicio.setLugar(newServicio.getLugar());
+    // public Servicio actualizaServicio(@PathVariable Long id, @RequestBody
+    // Servicio newServicio) {
+    // Servicio servicio = servicioService.obtenerServicioId(id).orElseThrow();
 
-    //     return servicioService.agregarServicio(servicio);
+    // // servicio.setNombre(newServicio.getNombre());
+    // // servicio.setPrecio(newServicio.getPrecio());
+    // // servicio.setProveedor(newServicio.getProveedor());
+    // // servicio.setDescripcion(newServicio.getDescripcion());
+    // // servicio.setLugar(newServicio.getLugar());
+
+    // return servicioService.agregarServicio(servicio);
     // }
 
     @DeleteMapping("/eliminar/servicio/{id}")

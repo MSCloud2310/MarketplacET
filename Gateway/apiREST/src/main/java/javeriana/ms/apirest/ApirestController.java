@@ -21,9 +21,6 @@ import org.springframework.web.client.RestTemplate;
 
 ////
 
-
-
-
 @RestController
 public class ApirestController {
     @Autowired

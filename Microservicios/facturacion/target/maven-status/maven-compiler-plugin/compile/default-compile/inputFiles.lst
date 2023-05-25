@@ -1,0 +1,10 @@
+/home/estudiante/Documents/MarketplacET/Microservicios/facturacion/src/main/java/javeriana/ms/facturacion/model/Orden_Item.java
+/home/estudiante/Documents/MarketplacET/Microservicios/facturacion/src/main/java/javeriana/ms/facturacion/service/OrdenService.java
+/home/estudiante/Documents/MarketplacET/Microservicios/facturacion/src/main/java/javeriana/ms/facturacion/controller/FacturacionController.java
+/home/estudiante/Documents/MarketplacET/Microservicios/facturacion/src/main/java/javeriana/ms/facturacion/repository/OrdenItemRepository.java
+/home/estudiante/Documents/MarketplacET/Microservicios/facturacion/src/main/java/javeriana/ms/facturacion/repository/OrdenRepository.java
+/home/estudiante/Documents/MarketplacET/Microservicios/facturacion/src/main/java/javeriana/ms/facturacion/model/Orden.java
+/home/estudiante/Documents/MarketplacET/Microservicios/facturacion/src/main/java/javeriana/ms/facturacion/model/Calificacion.java
+/home/estudiante/Documents/MarketplacET/Microservicios/facturacion/src/main/java/javeriana/ms/facturacion/service/OrdenItemService.java
+/home/estudiante/Documents/MarketplacET/Microservicios/facturacion/src/main/java/javeriana/ms/facturacion/FacturacionApplication.java
+/home/estudiante/Documents/MarketplacET/Microservicios/facturacion/src/main/java/javeriana/ms/facturacion/client/ClienteEureka.java

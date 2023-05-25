@@ -22,6 +22,14 @@ public class OrdenService {
         return ordenRepository.findById(id).orElseThrow();
     }
 
+    public List<Orden> obtenerOrdenByCustomer(Long id) {
+        return ordenRepository.findByIdCliente(id);
+    }
+
+    public List<Orden> obtenerOrdenByService(Long id) {
+        return ordenRepository.findByIdServicio(id);
+    }
+
     // public PaseoEcologico obtenerPaseoEcologicoName(String nombre) {
     // return paseoEcologicoRepository.findByNombre(nombre);
     // }

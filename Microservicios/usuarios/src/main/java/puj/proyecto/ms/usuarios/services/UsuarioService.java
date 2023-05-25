@@ -14,7 +14,7 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public List<Usuario> obtenerUsuarios() {
-        return (List<Usuario>) usuarioRepository.findAll();
+        return usuarioRepository.findAll();
     }
 
     public Usuario obtenerUsuarioId(Long id) {
@@ -47,12 +47,13 @@ public class UsuarioService {
         return "El cliente con " + id + " ha sido eliminado satisfactoriamente.";
     }
 
-    public String login (Usuario user) {
+    public String login(Usuario user) {
         System.out.println("datosss" + user.getNombre() + user.getPassword());
-        try{
-            Usuario userExits = usuarioRepository.findByNombreAndPassword(user.getNombre(), user.getPassword());
+        try {
+            Usuario userExits = usuarioRepository.findByNombreAndPassword(user.getNombre(),
+                    user.getPassword());
             return userExits.getRol();
-        }catch(Exception e){
+        } catch (Exception e) {
             return "no existe";
         }
     }

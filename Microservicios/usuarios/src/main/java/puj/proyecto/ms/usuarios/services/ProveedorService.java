@@ -27,8 +27,11 @@ public class ProveedorService {
         return proveedorRepository.findByNombre(nombre);
     }
 
-    public Proveedor agregarProveedor(Proveedor proveedor) {   
-        Proveedor provNew = new Proveedor(proveedor.getNombre(), proveedor.getCorreo(), proveedor.getPassword(), proveedor.getEdad(), proveedor.getFoto(), proveedor.getDescripcion(), proveedor.getTelefono(), proveedor.getPagina_web()); 
+    public Proveedor agregarProveedor(Proveedor proveedor) {
+        Proveedor provNew = new Proveedor(proveedor.getNombre(),
+                proveedor.getCorreo(), proveedor.getPassword(), proveedor.getEdad(),
+                proveedor.getFoto(), proveedor.getDescripcion(), proveedor.getTelefono(),
+                proveedor.getPagina_web());
         usuarioService.agregarUsuario(provNew);
 
         return provNew;

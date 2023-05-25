@@ -23,7 +23,7 @@ import javeriana.ms.facturacion.model.Orden;
 import javeriana.ms.facturacion.service.OrdenService;
 
 @RestController
-@RequestMapping("/facturacion")
+@RequestMapping("/compras")
 public class FacturacionController {
     @Autowired
     private RestTemplate restTemplate;
@@ -56,21 +56,33 @@ public class FacturacionController {
         return ordenService.obtenerOrdenById(id);
     }
 
+    @GetMapping("/cliente/{id}")
+    public List<Orden> obtenerOrdenByCustomer(@PathVariable Long id) {
+        return ordenService.obtenerOrdenByCustomer(id);
+    }
+
+    @GetMapping("/servicio/{id}")
+    public List<Orden> obtenerOrdenByService(@PathVariable Long id) {
+        return ordenService.obtenerOrdenByService(id);
+    }
+
     @PostMapping()
     public Orden crearOrden(@RequestBody Orden orden) {
         URI usuariosURI = clienteEureka.getUri("USUARIOS");
-        URI servicioUri = clienteEureka.getUri("SERVICIO");
-        //System.out.println("URL SERVICIO: "+servicioUri.toString());
+        URI servicioUri = clienteEureka.getUri("SERVICIOS");
+        // System.out.println("URL SERVICIO: "+servicioUri.toString());
         Long id_cliente = orden.getId_cliente();
         Long id_servicio = orden.getId_servicio();
-        //System.out.println("URL POST:" + usuariosURI.resolve("/usuario/cliente/" + id_cliente).toString());
-        if (Optional.empty() == restTemplate.getForObject(usuariosURI.resolve("/usuario/cliente/" + id_cliente),
+        // System.out.println("URL POST:" + servicioUri.resolve("/servicio/" +
+        // id_servicio).toString());
+        if (Optional.empty() != restTemplate.getForObject(usuariosURI.resolve("/usuario/cliente/" + id_cliente),
                 Object.class)
-                && Optional.empty() == restTemplate.getForObject(servicioUri.resolve("/servicio/" + id_servicio),
+                && Optional.empty() != restTemplate.getForObject(servicioUri.resolve("/servicio/" + id_servicio),
                         Object.class)) {
-            return null;
+            return ordenService.crearOrden(orden);
+
         }
-        return ordenService.crearOrden(orden);
+        return null;
     }
 
     @PutMapping("/{id}")
@@ -80,7 +92,7 @@ public class FacturacionController {
         URI servicioUri = clienteEureka.getUri("SERVICIO");
         Long id_cliente = newOrden.getId_cliente();
         Long id_servicio = newOrden.getId_servicio();
-        if (Optional.empty()  == restTemplate.getForObject(usuariosURI.resolve("/usuario/cliente/" + id_cliente),
+        if (Optional.empty() == restTemplate.getForObject(usuariosURI.resolve("/usuario/cliente/" + id_cliente),
                 Object.class)
                 && Optional.empty() == restTemplate.getForObject(servicioUri.resolve("/servicio/" + id_servicio),
                         Object.class)) {

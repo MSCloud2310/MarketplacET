@@ -42,5 +42,5 @@ public class MetodoPagoService {
         metodoPagoRepository.deleteById(id);
         return "El método de pago con " + id + " ha sido eliminada satisfactoriamente.";
     }
-    
+
 }

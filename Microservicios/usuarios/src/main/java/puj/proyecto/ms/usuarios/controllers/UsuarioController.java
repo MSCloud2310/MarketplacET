@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -75,22 +76,22 @@ public class UsuarioController {
     }
 
     // http://localhost:8080/usuario/cliente?idMetodoPago=1
-    // @PostMapping(value = "/cliente", consumes = MediaType.APPLICATION_JSON_VALUE)
-    // public Cliente agregarCliente(@RequestBody Cliente cliente, @RequestParam(name = "idMetodoPago", required = false) Long idMetodoPago) {
-        // return (idMetodoPago != null) ? clienteService.agregarClienteComplete(cliente, idMetodoPago): clienteService.agregarClienteBasic(cliente); 
-    // }
+    @PostMapping(value = "/cliente", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Cliente agregarCliente(@RequestBody Cliente cliente,
+            @RequestParam(name = "idMetodoPago", required = false) Long idMetodoPago) {
+        return (idMetodoPago != null) ? clienteService.agregarClienteComplete(cliente, idMetodoPago)
+                : clienteService.agregarClienteBasic(cliente);
+    }
 
     @PostMapping("/login")
     public String loginUser(@RequestBody Usuario user) {
         return usuarioService.login(user);
     }
 
-
     @PostMapping("/cliente")
     public Cliente agregarClienteBasic(@RequestBody Cliente cliente) {
         return clienteService.agregarClienteBasic(cliente);
     }
-
 
     @PostMapping("/proveedor")
     public Proveedor agregarProveedor(@RequestBody Proveedor proveedor) {

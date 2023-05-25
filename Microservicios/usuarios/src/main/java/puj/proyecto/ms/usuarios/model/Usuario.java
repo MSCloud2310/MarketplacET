@@ -4,20 +4,30 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "usuario")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String nombre;
+    @NotNull
     private String correo;
+    @NotNull
     private String password;
     private Integer edad;
     private String foto;
     private String descripcion;
+    @NotNull
     private String rol;
+
+    public Usuario() {
+
+    }
 
     public Usuario(String nombre, String correo, String password, Integer edad, String foto,
             String descripcion, String rol) {
@@ -28,9 +38,6 @@ public class Usuario {
         this.foto = foto;
         this.descripcion = descripcion;
         this.rol = rol;
-    }
-
-    public Usuario() {
     }
 
     public Long getId() {
@@ -99,7 +106,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Cliente [id=" + id + ", nombre=" + nombre + ", correo=" + correo + ", edad=" + edad
+        return "Cliente [nombre=" + nombre + ", correo=" + correo + ", edad=" + edad
                 + ", descripcion=" + descripcion + "]";
     }
 

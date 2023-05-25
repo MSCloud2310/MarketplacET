@@ -46,10 +46,11 @@ public class MetodoPagoController {
         return metodoPagoService.agregarMetodoPago(redSocial);
     }
 
-    @PutMapping("/{id}")
-    public MetodoPago actualizarMetodoPago(@PathVariable Long id, @RequestBody MetodoPago newRedSocial) {
-        return metodoPagoService.actualizarMetodoPago(id, newRedSocial);
-    }
+    // @PutMapping("/{id}")
+    // public MetodoPago actualizarMetodoPago(@PathVariable Long id, @RequestBody
+    // MetodoPago newRedSocial) {
+    // return metodoPagoService.actualizarMetodoPago(id, newRedSocial);
+    // }
 
     @DeleteMapping("/{id}")
     public String eliminarMetodoPago(@PathVariable Long id) {
