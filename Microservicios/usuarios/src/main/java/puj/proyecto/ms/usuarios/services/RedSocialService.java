@@ -28,13 +28,7 @@ public class RedSocialService {
         return redSocialRepository.findByNombre(nombre);
     }
 
-    public RedSocial agregarRedSocial(RedSocial redSocial, Long idProveedor) {
-        Proveedor proveedor = proveedorService.obtenerProveedorId(idProveedor);
-
-        // if (proveedor != null) {
-        // redSocial.setProveedor(proveedor);
-        // }
-
+    public RedSocial agregarRedSocial(RedSocial redSocial) {
         return redSocialRepository.save(redSocial);
     }
 

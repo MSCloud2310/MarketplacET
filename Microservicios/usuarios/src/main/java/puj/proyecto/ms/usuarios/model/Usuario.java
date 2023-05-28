@@ -104,6 +104,8 @@ public class Usuario {
         this.rol = rol;
     }
 
+    
+
     @Override
     public String toString() {
         return "Cliente [nombre=" + nombre + ", correo=" + correo + ", edad=" + edad

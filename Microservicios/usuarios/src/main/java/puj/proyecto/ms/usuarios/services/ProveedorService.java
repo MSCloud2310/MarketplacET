@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import puj.proyecto.ms.usuarios.model.Proveedor;
+import puj.proyecto.ms.usuarios.model.RedSocial;
 import puj.proyecto.ms.usuarios.repository.ProveedorRepository;
 
 @Service
@@ -13,10 +14,10 @@ public class ProveedorService {
     @Autowired
     private ProveedorRepository proveedorRepository;
     @Autowired
-    private UsuarioService usuarioService;
+    private RedSocialService redSocialService;
 
     public List<Proveedor> obtenerProveedor() {
-        return (List<Proveedor>) proveedorRepository.findAll();
+        return proveedorRepository.findAll();
     }
 
     public Proveedor obtenerProveedorId(Long id) {
@@ -28,17 +29,24 @@ public class ProveedorService {
     }
 
     public Proveedor agregarProveedor(Proveedor proveedor) {
-        Proveedor provNew = new Proveedor(proveedor.getNombre(),
-                proveedor.getCorreo(), proveedor.getPassword(), proveedor.getEdad(),
-                proveedor.getFoto(), proveedor.getDescripcion(), proveedor.getTelefono(),
-                proveedor.getPagina_web());
-        usuarioService.agregarUsuario(provNew);
-
-        return provNew;
+        for (RedSocial redSocial : proveedor.getRedes_sociales()) {
+            redSocial.setProveedor(proveedor);
+        }
+        return proveedorRepository.save(proveedor);
     }
 
     public Proveedor actualizarProveedor(Long id, Proveedor newProveedor) {
         Proveedor proveedor = proveedorRepository.findById(id).orElseThrow();
+
+        if (newProveedor.getRedes_sociales() != null) {
+            for (RedSocial redSocial : newProveedor.getRedes_sociales()) {
+                redSocial.setProveedor(proveedor);
+                redSocialService.agregarRedSocial(redSocial);
+                for (RedSocial redSocialAct : proveedor.getRedes_sociales()) {
+                    proveedor.getRedes_sociales().add(redSocialAct);
+                }
+            }
+        }
 
         proveedor.setNombre(newProveedor.getNombre());
         proveedor.setCorreo(newProveedor.getCorreo());
