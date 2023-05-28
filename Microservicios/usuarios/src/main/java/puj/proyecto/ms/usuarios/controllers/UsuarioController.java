@@ -1,11 +1,10 @@
 package puj.proyecto.ms.usuarios.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +44,11 @@ public class UsuarioController {
         return (List<Usuario>) usuarioService.findByRol(rol);
     }
 
+    @GetMapping("/correo")
+    public Optional<Usuario> findByCorreo(@RequestParam String correo) {
+        return usuarioService.findByCorreo(correo);
+    }
+
     @GetMapping("/cliente")
     public List<Cliente> obtenerClientes() {
         return (List<Cliente>) clienteService.obtenerClientes();
@@ -69,6 +73,11 @@ public class UsuarioController {
     @GetMapping("/cliente/nombre/{nombre}")
     public Cliente obtenerClienteName(@PathVariable String nombre) {
         return clienteService.obtenerClienteName(nombre);
+    }
+
+    @GetMapping("/cliente/cedula/{nombre}")
+    public Cliente obtenerClienteCedula(@PathVariable String cedula) {
+        return clienteService.obtenerClienteCedula(cedula);
     }
 
     @GetMapping("/proveedor/nombre/{nombre}")

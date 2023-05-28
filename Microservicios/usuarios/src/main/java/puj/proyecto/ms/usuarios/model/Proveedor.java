@@ -35,7 +35,7 @@ public class Proveedor extends Usuario {
 
     public Proveedor(String nombre, String correo, String password, Integer edad, String foto, String descripcion,
             String rol, Long telefono, String pagina_web, List<RedSocial> redes_sociales) {
-        super(nombre, correo, password, edad, foto, descripcion, rol);
+        super(nombre, correo, password, edad, foto, descripcion);
         this.telefono = telefono;
         this.pagina_web = pagina_web;
         this.redes_sociales = redes_sociales;
@@ -43,7 +43,7 @@ public class Proveedor extends Usuario {
 
     public Proveedor(String nombre, String correo, String password, Integer edad, String foto, String descripcion,
             String rol, Long telefono, String pagina_web) {
-        super(nombre, correo, password, edad, foto, descripcion, rol);
+        super(nombre, correo, password, edad, foto, descripcion);
         this.telefono = telefono;
         this.pagina_web = pagina_web;
     }

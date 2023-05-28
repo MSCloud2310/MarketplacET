@@ -13,7 +13,7 @@ public class Cliente extends Usuario {
 
     public Cliente(String nombre, String correo, String password, Integer edad, String foto, String descripcion,
             String rol, Long cedula) {
-        super(nombre, correo, password, edad, foto, descripcion, rol);
+        super(nombre, correo, password, edad, foto, descripcion);
         this.cedula = cedula;
     }
 

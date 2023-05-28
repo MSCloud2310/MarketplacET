@@ -1,6 +1,5 @@
 package puj.proyecto.ms.usuarios.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import puj.proyecto.ms.usuarios.model.Cliente;
-import puj.proyecto.ms.usuarios.model.MetodoPago;
 import puj.proyecto.ms.usuarios.repository.ClienteRepository;
 
 @Service
@@ -29,6 +27,9 @@ public class ClienteService {
 
     public Cliente obtenerClienteName(String nombre) {
         return clienteRepository.findByNombre(nombre);
+    }
+    public Cliente obtenerClienteCedula(String cedula) {
+        return clienteRepository.findByCedula(cedula);
     }
 
     public Cliente agregarCliente(Cliente cliente) {

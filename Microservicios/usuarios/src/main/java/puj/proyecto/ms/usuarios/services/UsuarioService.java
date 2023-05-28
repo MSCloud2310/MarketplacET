@@ -1,6 +1,7 @@
 package puj.proyecto.ms.usuarios.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,11 @@ public class UsuarioService {
     }
 
     public List<Usuario> findByRol(String nombre) {
-        return usuarioRepository.findByRol(nombre);
+        return usuarioRepository.findByRoles(nombre);
+    }
+
+    public Optional<Usuario> findByCorreo(String nombre) {
+        return usuarioRepository.findByCorreo(nombre);
     }
 
     public Usuario agregarUsuario(Usuario usuario) {
@@ -52,7 +57,7 @@ public class UsuarioService {
         try {
             Usuario userExits = usuarioRepository.findByNombreAndPassword(user.getNombre(),
                     user.getPassword());
-            return userExits.getRol();
+            return userExits.getNombre();
         } catch (Exception e) {
             return "no existe";
         }

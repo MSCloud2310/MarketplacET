@@ -1,4 +1,4 @@
-package puj.proyecto.ms.usuarios.model;
+package puj.proyecto.ms.usuarios.utils;
 
 public enum MetodoPago {
     EFECTIVO,
