@@ -1,13 +1,12 @@
 package puj.proyecto.ms.usuarios.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import puj.proyecto.ms.usuarios.model.Cliente;
-import puj.proyecto.ms.usuarios.model.MetodoPago;
 import puj.proyecto.ms.usuarios.repository.ClienteRepository;
 
 @Service
@@ -15,9 +14,8 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
     @Autowired
-    private MetodoPagoService metodoPagoService;
-    @Autowired
     private UsuarioService usuarioService;
+ 
 
     public List<Cliente> obtenerClientes() {
         return clienteRepository.findAll();
@@ -30,49 +28,20 @@ public class ClienteService {
     public Cliente obtenerClienteName(String nombre) {
         return clienteRepository.findByNombre(nombre);
     }
-
-    public Cliente agregarClienteBasic(Cliente cliente) {
-        Cliente cliNew = new Cliente(cliente.getNombre(), cliente.getCorreo(),
-                cliente.getPassword(), cliente.getEdad(), cliente.getFoto(),
-                cliente.getDescripcion(), cliente.getCedula());
-
-        usuarioService.agregarUsuario(cliNew);
-
-        return cliNew;
+    public Cliente obtenerClienteCedula(String cedula) {
+        return clienteRepository.findByCedula(cedula);
     }
 
-    public Cliente agregarClienteComplete(Cliente cliente, Long idMetodoPago) {
-        MetodoPago pago = metodoPagoService.obtenerMetodoPagoId(idMetodoPago);
+    public Cliente agregarCliente(Cliente cliente) {
+        Cliente clienteAgregado = clienteRepository.save(cliente);
 
-        if (pago == null)
-            throw new RuntimeException("El pago con id " + idMetodoPago + " no existe en la BD");
-
-        List<MetodoPago> metodos = new ArrayList<>();
-
-        metodos.add(pago);
-        Cliente clienteNew = clienteRepository.save(cliente);
-
-        List<Cliente> clientes = new ArrayList<>();
-        clientes.add(clienteNew);
-
-        System.out.println(clienteNew);
-
-        return clienteNew;
+        return clienteAgregado;
     }
+    
 
     public Cliente actualizarCliente(Long id, Cliente newCliente) {
         Cliente cliente = clienteRepository.findById(id).orElseThrow();
-
-        if(newCliente.getMetodosPago() != null){
-            if(cliente.getMetodosPago() == null) {
-                cliente.setMetodosPago(newCliente.getMetodosPago());
-            } else {
-                for(MetodoPago element : newCliente.getMetodosPago()){
-                    cliente.getMetodosPago().add(element);
-                }
-            }
-        }
-
+        
         cliente.setNombre(newCliente.getNombre());
         cliente.setCorreo(newCliente.getCorreo());
         cliente.setPassword(newCliente.getPassword());
@@ -80,7 +49,7 @@ public class ClienteService {
         cliente.setFoto(newCliente.getFoto());
         cliente.setDescripcion(newCliente.getDescripcion());
         cliente.setCedula(newCliente.getCedula());
-        
+
         return clienteRepository.save(cliente);
     }
 

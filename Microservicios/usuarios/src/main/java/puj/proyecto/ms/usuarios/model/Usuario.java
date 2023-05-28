@@ -1,9 +1,17 @@
 package puj.proyecto.ms.usuarios.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,22 +30,38 @@ public class Usuario {
     private Integer edad;
     private String foto;
     private String descripcion;
-    @NotNull
-    private String rol;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonBackReference
+    @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private List<Rol> roles;
 
     public Usuario() {
 
     }
 
     public Usuario(String nombre, String correo, String password, Integer edad, String foto,
-            String descripcion, String rol) {
+            String descripcion) {
         this.nombre = nombre;
         this.correo = correo;
         this.password = password;
         this.edad = edad;
         this.foto = foto;
         this.descripcion = descripcion;
-        this.rol = rol;
+        //this.rol = rol;
+    }
+
+    public Usuario(Long id, @NotNull String nombre, @NotNull String correo, @NotNull String password, Integer edad,
+            String foto, String descripcion, List<Rol> roles) {
+        this.id = id;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.password = password;
+        this.edad = edad;
+        this.foto = foto;
+        this.descripcion = descripcion;
+        //this.rol = rol;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -96,18 +120,26 @@ public class Usuario {
         this.descripcion = descripcion;
     }
 
-    public String getRol() {
-        return rol;
-    }
+    // public String getRol() {
+    //     return rol;
+    // }
 
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
+    // public void setRol(String rol) {
+    //     this.rol = rol;
+    // }
 
     @Override
     public String toString() {
         return "Cliente [nombre=" + nombre + ", correo=" + correo + ", edad=" + edad
                 + ", descripcion=" + descripcion + "]";
+    }
+
+    public List<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
     }
 
 }
