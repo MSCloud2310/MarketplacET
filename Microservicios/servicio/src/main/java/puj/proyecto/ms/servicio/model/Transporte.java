@@ -1,44 +1,42 @@
 package puj.proyecto.ms.servicio.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToOne;
+
 @Entity
 
 public class Transporte extends Servicio {
-    private static String categoria = "Transporte";
     private String origen;
-    private String destino;
     private String hora_inicio;
     private String hora_fin;
 
-    @JsonIgnore
-    @ManyToOne
+    @JsonProperty("tipo_transporte")
+    @Enumerated(EnumType.STRING)
     private TipoTransporte tipoTransporte;
 
-    public Transporte(){
-        
+
+    public Transporte() {
+
     }
- 
-    public Transporte(String origen, String destino, String hora_inicio, String hora_fin,
+
+    public Transporte(String origen, String hora_inicio, String hora_fin,
             TipoTransporte tipoTransporte) {
         this.origen = origen;
-        this.destino = destino;
         this.hora_inicio = hora_inicio;
         this.hora_fin = hora_fin;
         this.tipoTransporte = tipoTransporte;
     }
 
     public Transporte(String nombre, Double precio, String descripcion, Boolean disponibilidad, Integer stock,
-            String foto, String origen, String destino, String hora_inicio, String hora_fin,
-            TipoTransporte tipoTransporte) {
-        super(nombre, precio, descripcion, disponibilidad, stock, foto, categoria);
-        this.origen = origen;
-        this.destino = destino;
-        this.hora_inicio = hora_inicio;
-        this.hora_fin = hora_fin;
-        this.tipoTransporte = tipoTransporte;
+            String foto, String categoria, String direccion, String pais, String ciudad, String latitud,
+            String longitud, String lenguaje, String clima, String codigoPostal) {
+        super(nombre, precio, descripcion, disponibilidad, stock, foto, categoria, direccion, pais, ciudad, latitud,
+                longitud, lenguaje, clima, codigoPostal);
     }
 
     public String getOrigen() {
@@ -47,14 +45,6 @@ public class Transporte extends Servicio {
 
     public void setOrigen(String origen) {
         this.origen = origen;
-    }
-
-    public String getDestino() {
-        return destino;
-    }
-
-    public void setDestino(String destino) {
-        this.destino = destino;
     }
 
     public String getHora_inicio() {
@@ -81,7 +71,4 @@ public class Transporte extends Servicio {
         this.tipoTransporte = tipoTransporte;
     }
 
-
-   
-    
 }

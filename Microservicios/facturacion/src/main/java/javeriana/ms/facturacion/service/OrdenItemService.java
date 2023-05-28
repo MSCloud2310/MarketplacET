@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javeriana.ms.facturacion.model.Orden_Item;
+import javeriana.ms.facturacion.model.OrdenItem;
 import javeriana.ms.facturacion.repository.OrdenItemRepository;
 
 @Service
@@ -14,29 +14,30 @@ public class OrdenItemService {
     @Autowired
     OrdenItemRepository ordenItemRepository;
 
-    public List<Orden_Item> obtenerOrdenes() {
+    public List<OrdenItem> obtenerOrdenes() {
         return ordenItemRepository.findAll();
     }
 
-    public Orden_Item obtenerOrdenById(Long id) {
+    public OrdenItem obtenerOrdenById(Long id) {
         return ordenItemRepository.findById(id).orElseThrow();
     }
 
     // public PaseoEcologico obtenerPaseoEcologicoName(String nombre) {
     // return paseoEcologicoRepository.findByNombre(nombre);
     // }
+    
 
-    public Orden_Item crearOrden(Orden_Item orden) {
+    public OrdenItem crearOrden(OrdenItem orden) {
         return ordenItemRepository.save(orden);
     }
 
-    public Orden_Item actualizarOrden(Long id, Orden_Item newOrden) {
-        Orden_Item orden = ordenItemRepository.findById(id).orElseThrow();
+    public OrdenItem actualizarOrden(Long id, OrdenItem newOrden) {
+        OrdenItem orden = ordenItemRepository.findById(id).orElseThrow();
 
-        orden.setCantidad(newOrden.getCantidad());
-        orden.setPrecio(newOrden.getPrecio());
-        orden.setId_orden(newOrden.getId_orden());
-        orden.setId_servicio(newOrden.getId_servicio());
+        // orden.setCantidad(newOrden.getCantidad());
+        // orden.setPrecio(newOrden.getPrecio());
+        // orden.setId_orden(newOrden.getId_orden());
+        // orden.setId_servicio(newOrden.getId_servicio());
 
         return ordenItemRepository.save(orden);
     }

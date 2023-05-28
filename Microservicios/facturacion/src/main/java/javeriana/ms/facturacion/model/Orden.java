@@ -1,33 +1,81 @@
 package javeriana.ms.facturacion.model;
 
-import java.sql.Date;
+import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 
 @Entity
-@Table(name = "orden")
 public class Orden {
-
     @Id
     @Column(name = "id_orden")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date fecha;
+    private String ordenNo;
 
-    private Long idCliente;
+    private String fecha;
 
-    private Long idServicio;
+    @JsonProperty("dias")
+    private Integer numDias;
 
-    private Double total;
+    @Transient
+    private List<Servicio> listaServicios;
 
-    // private List<Calificacion> calificaciones;
+    @Transient
+    private String nombreCliente;
+
+    private String numeroCedula;
+
+    @Transient
+    private Integer cantidad;
+
+    @Transient
+    private BigDecimal precio;
+
+    @JsonProperty("metodo_pago")
+    @Enumerated(EnumType.STRING)
+    private MetodoPago metodoPago;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orden")
+    private List<OrdenItem> ordenItems;
+
+    public Orden(String ordenNo, String fecha, List<OrdenItem> ordenItems) {
+        this.ordenNo = ordenNo;
+        this.fecha = fecha;
+        this.ordenItems = ordenItems;
+    }
+
+    public Orden(String ordenNo, String fecha, List<Servicio> listaServicios, String nombreCliente,
+            String numeroCedula) {
+        this.ordenNo = ordenNo;
+        this.fecha = fecha;
+        this.listaServicios = listaServicios;
+        this.nombreCliente = nombreCliente;
+        this.numeroCedula = numeroCedula;
+    }
+
+    public Orden(String ordenNo, String fecha, List<Servicio> listaServicios, String nombreCliente, String numeroCedula,
+            Integer cantidad, BigDecimal precio) {
+        this.ordenNo = ordenNo;
+        this.fecha = fecha;
+        this.listaServicios = listaServicios;
+        this.nombreCliente = nombreCliente;
+        this.numeroCedula = numeroCedula;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
 
     public Orden() {
     }
@@ -40,44 +88,84 @@ public class Orden {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public String getOrdenNo() {
+        return ordenNo;
+    }
+
+    public void setOrdenNo(String ordenNo) {
+        this.ordenNo = ordenNo;
+    }
+
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
-    public Long getId_cliente() {
-        return idCliente;
+    public List<OrdenItem> getOrdenItems() {
+        return ordenItems;
     }
 
-    public void setId_cliente(Long id_cliente) {
-        this.idCliente = id_cliente;
+    public void setOrdenItems(List<OrdenItem> ordenItems) {
+        this.ordenItems = ordenItems;
     }
 
-    public Long getId_servicio() {
-        return idServicio;
+    public String getNombreCliente() {
+        return nombreCliente;
     }
 
-    public void setId_servicio(Long id_servicio) {
-        this.idServicio = id_servicio;
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 
-    public Double getTotal() {
-        return total;
+    public String getNumeroCedula() {
+        return numeroCedula;
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
+    public void setNumeroCedula(String numeroCedula) {
+        this.numeroCedula = numeroCedula;
     }
 
-    // public List<Calificacion> getCalificaciones() {
-    // return calificaciones;
-    // }
+    public Integer getCantidad() {
+        return cantidad;
+    }
 
-    // public void setCalificaciones(List<Calificacion> calificaciones) {
-    // this.calificaciones = calificaciones;
-    // }
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+
+    public List<Servicio> getListaServicios() {
+        return listaServicios;
+    }
+
+    public void setListaServicios(List<Servicio> listaServicios) {
+        this.listaServicios = listaServicios;
+    }
+
+    public MetodoPago getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(MetodoPago metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public Integer getNumDias() {
+        return numDias;
+    }
+
+    public void setNumDias(Integer numDias) {
+        this.numDias = numDias;
+    }
 
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.netflix.discovery.converters.Auto;
+
 import puj.proyecto.ms.servicio.model.Alimentacion;
 import puj.proyecto.ms.servicio.model.TipoComida;
 import puj.proyecto.ms.servicio.repository.AlimentacionRepository;
@@ -13,31 +15,17 @@ import puj.proyecto.ms.servicio.repository.AlimentacionRepository;
 public class AlimentacionService {
     @Autowired
     private AlimentacionRepository alimentacionRepository;
-    @Autowired
-    private ServicioService servicioService;
-    @Autowired
-    private TipoComidaService tipoComidaService;
-
 
     public List<Alimentacion> obtenerAlimentacion() {
-        return (List<Alimentacion>) alimentacionRepository.findAll();
+        return alimentacionRepository.findAll();
     }
 
     public Alimentacion obtenerAlimentacionId(Long id) {
         return alimentacionRepository.findById(id).orElseThrow();
     }
 
-    // public PaseoEcologico obtenerPaseoEcologicoName(String nombre) {
-    //     return paseoEcologicoRepository.findByNombre(nombre);
-    // }
-
-    public Alimentacion agregarAlimentacion(Alimentacion alimentacion, Long idTipoComida) {
-        TipoComida tipo = tipoComidaService.obtenerTipoComidaId(idTipoComida);
-
-        Alimentacion alojaNew = new Alimentacion(alimentacion.getNombre(), alimentacion.getPrecio(), alimentacion.getDescripcion(), alimentacion.getDisponibilidad(), alimentacion.getStock(), alimentacion.getFoto(), tipo);
-        servicioService.agregarServicio(alojaNew);
-
-        return alojaNew;
+    public Alimentacion agregarAlimentacion(Alimentacion alimentacion) {
+        return alimentacionRepository.save(alimentacion);
     }
 
     public Alimentacion actualizarAlimentacion(Long id, Alimentacion newAlimentacion) {

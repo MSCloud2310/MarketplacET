@@ -1,13 +1,10 @@
 package javeriana.ms.facturacion.controller;
 
-import java.net.URI;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,25 +13,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import javeriana.ms.facturacion.client.ClienteEureka;
 import javeriana.ms.facturacion.model.Orden;
 import javeriana.ms.facturacion.service.OrdenService;
 
 @RestController
 @RequestMapping("/compras")
 public class FacturacionController {
-    @Autowired
-    private RestTemplate restTemplate;
 
-    @Autowired
-    private ClienteEureka clienteEureka;
+    // @Autowired
+    // private ClienteEureka clienteEureka;
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
     // @Bean
     // public RestTemplate restTesmplate() {
     // return new RestTemplate();
@@ -56,49 +45,42 @@ public class FacturacionController {
         return ordenService.obtenerOrdenById(id);
     }
 
-    @GetMapping("/cliente/{id}")
-    public List<Orden> obtenerOrdenByCustomer(@PathVariable Long id) {
-        return ordenService.obtenerOrdenByCustomer(id);
+    @GetMapping("/cliente/{cedula}")
+    public List<Orden> obtenerOrdenByCustomer(@PathVariable String cedula) {
+    return ordenService.obtenerOrdenByCustomer(cedula);
     }
 
-    @GetMapping("/servicio/{id}")
-    public List<Orden> obtenerOrdenByService(@PathVariable Long id) {
-        return ordenService.obtenerOrdenByService(id);
-    }
+    // @GetMapping("/servicio/{id}")
+    // public List<Orden> obtenerOrdenByService(@PathVariable Long id) {
+    // return ordenService.obtenerOrdenByService(id);
+    // }
 
     @PostMapping()
-    public Orden crearOrden(@RequestBody Orden orden) {
-        URI usuariosURI = clienteEureka.getUri("USUARIOS");
-        URI servicioUri = clienteEureka.getUri("SERVICIOS");
-        // System.out.println("URL SERVICIO: "+servicioUri.toString());
-        Long id_cliente = orden.getId_cliente();
-        Long id_servicio = orden.getId_servicio();
-        // System.out.println("URL POST:" + servicioUri.resolve("/servicio/" +
-        // id_servicio).toString());
-        if (Optional.empty() != restTemplate.getForObject(usuariosURI.resolve("/usuario/cliente/" + id_cliente),
-                Object.class)
-                && Optional.empty() != restTemplate.getForObject(servicioUri.resolve("/servicio/" + id_servicio),
-                        Object.class)) {
-            return ordenService.crearOrden(orden);
+    public Orden crearOrden(@RequestBody Orden orden) throws UnsupportedEncodingException {
 
-        }
-        return null;
+        return ordenService.crearOrden(orden);
+        // return null;
     }
 
     @PutMapping("/{id}")
     public Orden actualizarOrden(@PathVariable Long id,
             @RequestBody Orden newOrden) {
-        URI usuariosURI = clienteEureka.getUri("USUARIOS");
-        URI servicioUri = clienteEureka.getUri("SERVICIO");
-        Long id_cliente = newOrden.getId_cliente();
-        Long id_servicio = newOrden.getId_servicio();
-        if (Optional.empty() == restTemplate.getForObject(usuariosURI.resolve("/usuario/cliente/" + id_cliente),
-                Object.class)
-                && Optional.empty() == restTemplate.getForObject(servicioUri.resolve("/servicio/" + id_servicio),
-                        Object.class)) {
-            return null;
+        // URI usuariosURI = clienteEureka.getUri("USUARIOS");
+        // URI servicioUri = clienteEureka.getUri("SERVICIO");
+        // String nombre_cliente = newOrden.getCliente().getNombre();
+        // String nombre_servicio = newOrden.getServicio().getNombre();
+        // if (Optional.empty() != restTemplate.getForObject(
+        // usuariosURI.resolve("/usuario/cliente/nombre" + nombre_cliente),
+        // Object.class))
+        // && -1 !=
+        // restTemplate.getForObject(servicioUri.resolve("/servicio/stock/nombre/" +
+        // nombre_servicio),
+        // Integer.class))
+        {
+            return ordenService.actualizarOrden(id, newOrden);
         }
-        return ordenService.actualizarOrden(id, newOrden);
+        // return null;
+
     }
 
     @DeleteMapping("/{id}")

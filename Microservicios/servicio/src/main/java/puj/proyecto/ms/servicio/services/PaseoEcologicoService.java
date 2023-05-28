@@ -16,7 +16,7 @@ public class PaseoEcologicoService {
     private ServicioService servicioService;
 
     public List<PaseoEcologico> obtenerPaseosEcologicos() {
-        return (List<PaseoEcologico>) paseoEcologicoRepository.findAll();
+        return paseoEcologicoRepository.findAll();
     }
 
     public PaseoEcologico obtenerPaseoEcologicoId(Long id) {
@@ -28,11 +28,7 @@ public class PaseoEcologicoService {
     // }
 
     public PaseoEcologico agregarPaseoEcologico(PaseoEcologico pasEco) {
-        PaseoEcologico paseoNew = new PaseoEcologico(pasEco.getNombre(), pasEco.getPrecio(), pasEco.getDescripcion(), pasEco.getDisponibilidad(), pasEco.getStock(), pasEco.getFoto(), pasEco.getOrigen(), pasEco.getDestino(), pasEco.getFecha_salida(), pasEco.getFecha_llegada(), pasEco.getGuia_turistico(), pasEco.getRecomendaciones());
-        servicioService.agregarServicio(paseoNew);
-
-        return paseoNew;
-      
+        return paseoEcologicoRepository.save(pasEco);
     }
 
     public PaseoEcologico actualizarPaseoEcologico(Long id, PaseoEcologico newPaseoEcologico) {

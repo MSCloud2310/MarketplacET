@@ -15,29 +15,18 @@ public class TransporteService {
     private TransporteRepository transporteRepository;
     @Autowired
     private ServicioService servicioService;
-    @Autowired
-    private TipoTransporteService tipoTransporteService;
-
 
     public List<Transporte> obtenerTransportes() {
-        return (List<Transporte>) transporteRepository.findAll();
+        return transporteRepository.findAll();
     }
 
     public Transporte obtenerTransporteId(Long id) {
         return transporteRepository.findById(id).orElseThrow();
     }
 
-    // public PaseoEcologico obtenerPaseoEcologicoName(String nombre) {
-    //     return paseoEcologicoRepository.findByNombre(nombre);
-    // }
 
-    public Transporte agregarTransporte(Transporte transporte, Long idTipoTransporte) {
-        TipoTransporte tipo = tipoTransporteService.obtenerTipoTransporteId(idTipoTransporte);
-
-        Transporte alojaNew = new Transporte(transporte.getNombre(), transporte.getPrecio(), transporte.getDescripcion(), transporte.getDisponibilidad(), transporte.getStock(), transporte.getFoto(), transporte.getOrigen(), transporte.getDestino(), transporte.getHora_inicio(), transporte.getHora_fin(), tipo);
-        servicioService.agregarServicio(alojaNew);
-
-        return alojaNew;
+    public Transporte agregarTransporte(Transporte transporte) {
+        return transporteRepository.save(transporte);
     }
 
     public Transporte actualizarTransporte(Long id, Transporte newAlimentacion) {

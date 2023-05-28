@@ -1,18 +1,9 @@
-package puj.proyecto.ms.servicio.model;
+package javeriana.ms.facturacion.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity
-@Table(name = "servicio")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Servicio {
-    @Id
-    @Column(name = "id_servicio")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private Double precio;
@@ -181,16 +172,4 @@ public class Servicio {
         this.codigoPostal = codigoPostal;
     }
 
-    @Override
-    public String toString() {
-        return "Servicio [id=" + id + ",\n" + "nombre=" + nombre + ",\n" + "precio=" + precio + ",\n" + "descripcion="
-                + descripcion
-                + ",\n" + "disponibilidad=" + disponibilidad + ",\n" + "stock=" + stock + ",\n" + "foto=" + foto + ",\n"
-                + "categoria="
-                + categoria + ",\n" + "direccion=" + direccion + ",\n" + "pais=" + pais + ",\n" + "ciudad=" + ciudad
-                + ",\n" + "latitud="
-                + latitud + ",\n" + "longitud=" + longitud + ",\n" + "lenguaje=" + lenguaje + ",\n" + "clima=" + clima
-                + ",\n" + "codigoPostal="
-                + codigoPostal + "]";
-    }
 }

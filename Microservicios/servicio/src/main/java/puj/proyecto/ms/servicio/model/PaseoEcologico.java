@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class PaseoEcologico extends Servicio {
-    private static String categoria = "Paseo Ecológico";
     private String origen;
     private String destino;
     private String fecha_salida;
@@ -15,16 +14,11 @@ public class PaseoEcologico extends Servicio {
     public PaseoEcologico() {
     }
 
-    public PaseoEcologico(String nombre, Double precio, String descripcion, Boolean disponibilidad,
-            Integer stock, String foto, String origen, String destino, String fecha_salida, String fecha_llegada,
-            String guia_turistico, String recomendaciones) {
-        super(nombre, precio, descripcion, disponibilidad, stock, foto, categoria);
-        this.origen = origen;
-        this.destino = destino;
-        this.fecha_salida = fecha_salida;
-        this.fecha_llegada = fecha_llegada;
-        this.guia_turistico = guia_turistico;
-        this.recomendaciones = recomendaciones;
+    public PaseoEcologico(String nombre, Double precio, String descripcion, Boolean disponibilidad, Integer stock,
+            String foto, String categoria, String direccion, String pais, String ciudad, String latitud,
+            String longitud, String lenguaje, String clima, String codigoPostal) {
+        super(nombre, precio, descripcion, disponibilidad, stock, foto, categoria, direccion, pais, ciudad, latitud,
+                longitud, lenguaje, clima, codigoPostal);
     }
 
     public PaseoEcologico(String origen, String destino, String fecha_salida, String fecha_llegada,

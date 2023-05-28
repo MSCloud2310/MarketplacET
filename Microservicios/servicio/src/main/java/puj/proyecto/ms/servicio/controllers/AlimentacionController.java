@@ -25,10 +25,9 @@ public class AlimentacionController {
     @Autowired
     private AlimentacionService alimentacionService;
 
-
     @GetMapping()
     public List<Alimentacion> obtenerAlimentacion() {
-        return (List<Alimentacion>) alimentacionService.obtenerAlimentacion();
+        return alimentacionService.obtenerAlimentacion();
     }
 
     @GetMapping("/{id}")
@@ -36,15 +35,9 @@ public class AlimentacionController {
         return alimentacionService.obtenerAlimentacionId(id);
     }
 
-    // http://localhost:8080/usuario/query/cliente?nombre=Mau
-    // @GetMapping("/nombre/{nombre}")
-    // public PaseoEcologico obtenerRedSocialNombre(@PathVariable String nombre) {
-    //     return paseoEcologicoService.obtenerPaseoEcologicoNombre(nombre);
-    // }
-
     @PostMapping("/tipo-comida/{id}")
-    public Alimentacion agregarAlimentacion(@RequestBody Alimentacion alimentacion, @PathVariable Long id ) {
-        return alimentacionService.agregarAlimentacion(alimentacion, id);
+    public Alimentacion agregarAlimentacion(@RequestBody Alimentacion alimentacion) {
+        return alimentacionService.agregarAlimentacion(alimentacion);
     }
 
     @PutMapping("/{id}")

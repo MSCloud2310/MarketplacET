@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class Alojamiento extends Servicio {
-    private static String categoria = "Alojamiento";
     private String fecha_inicio;
     private String fecha_fin;
     private Integer cantidad_personas;
@@ -20,9 +19,12 @@ public class Alojamiento extends Servicio {
         this.cantidad_personas = cantidad_personas;
     }
 
-    public Alojamiento(String nombre, Double precio, String descripcion, Boolean disponibilidad,
-            Integer stock, String foto, String fecha_inicio, String fecha_fin, Integer cantidad_personas) {
-        super(nombre, precio, descripcion, disponibilidad, stock, foto, categoria);
+    public Alojamiento(String nombre, Double precio, String descripcion, Boolean disponibilidad, Integer stock,
+            String foto, String categoria, String direccion, String pais, String ciudad, String latitud,
+            String longitud, String lenguaje, String clima, String codigoPostal, String fecha_inicio, String fecha_fin,
+            Integer cantidad_personas) {
+        super(nombre, precio, descripcion, disponibilidad, stock, foto, categoria, direccion, pais, ciudad, latitud,
+                longitud, lenguaje, clima, codigoPostal);
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
         this.cantidad_personas = cantidad_personas;
