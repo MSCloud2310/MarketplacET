@@ -15,4 +15,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     public abstract List<Usuario> findByRol(String rol);
 
     public abstract Usuario findByNombreAndPassword(String nombre, String password);
+
+    public abstract Usuario findByIdAndPassword (Long id, String password);
 }

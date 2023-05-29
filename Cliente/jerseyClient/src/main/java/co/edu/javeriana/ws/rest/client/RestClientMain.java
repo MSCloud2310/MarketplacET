@@ -441,22 +441,23 @@ public class RestClientMain {
 		return true;
 	}
 
-	public static String authentication(String user, String password) {
-		String token="";
-		try{
-			Client client = ClientBuilder.newClient();
-			WebTarget webTarget = client.target(MY_SERVER_URL);
-			WebTarget authWebTarget = webTarget.path("login");
-			JSONObject loginJson = new JSONObject();			
-			loginJson.put("nombre", user);
-			loginJson.put("password", password);			
-			Invocation.Builder invocationBuilder = authWebTarget.request(MediaType.APPLICATION_JSON);
-			Response response = invocationBuilder.post(Entity.entity(loginJson.toString(), MediaType.APPLICATION_JSON));
-			token=response.readEntity(String.class);
-		}catch(Exception e){}
-		System.out.println(token);
-		return token;
-	}		
+    public static String authentication(Long id, String password) {
+        String token = "";
+        try {
+            Client client = ClientBuilder.newClient();
+            WebTarget webTarget = client.target(MY_SERVER_URL);
+            WebTarget authWebTarget = webTarget.path("login");
+            JSONObject loginJson = new JSONObject();
+            loginJson.put("id", id);
+            loginJson.put("password", password);
+            Invocation.Builder invocationBuilder = authWebTarget.request(MediaType.APPLICATION_JSON);
+            Response response = invocationBuilder.post(Entity.entity(loginJson.toString(), MediaType.APPLICATION_JSON));
+            token = response.readEntity(String.class);
+        } catch (Exception e) {
+        }
+        System.out.println(token);
+        return token;
+    }
 
 }
 
