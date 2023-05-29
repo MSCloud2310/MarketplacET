@@ -1,0 +1,60 @@
+services:
+    # A cada contenedor se le asigna un hostname
+    # igual al nombre del servicio
+    
+    # http://localhost:8761/
+    eureka:
+        build: ./gateway/eureka
+        container_name: eureka
+        networks:
+            - mynet1
+            - mynet2
+            - mynet3
+        ports:
+            - 8761:8761
+
+    # http://localhost:8080/calculadora/suma?a=5&b=4
+    servicios:
+        build: ./microservicios/servicio
+        container_name: servicios
+        networks:
+            - mynet1
+        ports:
+            - 9080:9080
+        environment:
+            - eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka/
+        depends_on:
+            - eureka
+
+    usuarios:
+        build: ./microservicios/usuarios
+        container_name: usuarios
+        networks:
+            - mynet2
+        ports:
+            - 9090:9090
+        environment:
+            - eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka/
+        depends_on:
+            - eureka
+    facturacion:    
+        build: ./microservicios/facturacion
+        container_name: facturacion
+        networks:
+            - mynet2
+        ports:
+            - 9090:9090
+        environment:
+            - eureka.client.serviceUrl.defaultZone=http://eureka:8761/eureka/
+        depends_on:
+            - eureka
+networks:
+    default:
+        name: mynet
+        driver: bridge
+    mynet1:
+        driver: bridge
+    mynet2:
+        driver: bridge
+    mynet3:
+        driver: bridge

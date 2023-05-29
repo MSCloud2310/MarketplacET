@@ -18,6 +18,7 @@
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.1</spring-cloud.version>
 		<arcgis.version>200.1.0</arcgis.version>
+		<spring-boot.repackage.skip>true</spring-boot.repackage.skip>
 	</properties>
 
 	<dependencies>
@@ -47,35 +48,35 @@
 			<artifactId>json</artifactId>
 			<version>20230227</version>
 		</dependency>
-<dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>17.0.2</version>
-        </dependency>
-        <!--ArcGIS dependencies -->
-        <dependency>
-            <groupId>com.esri.arcgisruntime</groupId>
-            <artifactId>arcgis-java</artifactId>
-            <version>${arcgis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.esri.arcgisruntime</groupId>
-            <artifactId>arcgis-java-jnilibs</artifactId>
-            <version>${arcgis.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>com.esri.arcgisruntime</groupId>
-            <artifactId>arcgis-java-resources</artifactId>
-            <version>${arcgis.version}</version>
-            <type>zip</type>
-        </dependency>
-        <!--SLF4J dependencies-->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-nop</artifactId>
-            <version>1.7.32</version>
-        </dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>17.0.2</version>
+		</dependency>
+		<!--ArcGIS dependencies -->
+		<dependency>
+			<groupId>com.esri.arcgisruntime</groupId>
+			<artifactId>arcgis-java</artifactId>
+			<version>${arcgis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.esri.arcgisruntime</groupId>
+			<artifactId>arcgis-java-jnilibs</artifactId>
+			<version>${arcgis.version}</version>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>com.esri.arcgisruntime</groupId>
+			<artifactId>arcgis-java-resources</artifactId>
+			<version>${arcgis.version}</version>
+			<type>zip</type>
+		</dependency>
+		<!--SLF4J dependencies-->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-nop</artifactId>
+			<version>1.7.32</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -91,11 +92,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -110,60 +111,61 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>app</finalName>
 		<plugins>
-		<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <artifactItems>
-                        <artifactItem>
-                            <groupId>com.esri.arcgisruntime</groupId>
-                            <artifactId>arcgis-java-jnilibs</artifactId>
-                            <version>${arcgis.version}</version>
-                            <type>zip</type>
-                            <overWrite>false</overWrite>
-                            <outputDirectory>${user.home}/.arcgis/${arcgis.version}</outputDirectory>
-                        </artifactItem>
-                        <artifactItem>
-                            <groupId>com.esri.arcgisruntime</groupId>
-                            <artifactId>arcgis-java-resources</artifactId>
-                            <version>${arcgis.version}</version>
-                            <type>zip</type>
-                            <overWrite>false</overWrite>
-                            <outputDirectory>${user.home}/.arcgis/${arcgis.version}</outputDirectory>
-                        </artifactItem>
-                    </artifactItems>
-                </configuration>
-            </plugin>
-<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <release>11</release>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>com.mycompany.app.App</mainClass>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>io.takari</groupId>
-                <artifactId>maven</artifactId>
-                <version>0.7.4</version>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.1</version>
+				<configuration>
+					<artifactItems>
+						<artifactItem>
+							<groupId>com.esri.arcgisruntime</groupId>
+							<artifactId>arcgis-java-jnilibs</artifactId>
+							<version>${arcgis.version}</version>
+							<type>zip</type>
+							<overWrite>false</overWrite>
+							<outputDirectory>${user.home}/.arcgis/${arcgis.version}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.esri.arcgisruntime</groupId>
+							<artifactId>arcgis-java-resources</artifactId>
+							<version>${arcgis.version}</version>
+							<type>zip</type>
+							<overWrite>false</overWrite>
+							<outputDirectory>${user.home}/.arcgis/${arcgis.version}</outputDirectory>
+						</artifactItem>
+					</artifactItems>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<release>11</release>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>com.mycompany.app.App</mainClass>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>io.takari</groupId>
+				<artifactId>maven</artifactId>
+				<version>0.7.4</version>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
