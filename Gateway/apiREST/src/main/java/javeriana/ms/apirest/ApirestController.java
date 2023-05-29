@@ -66,8 +66,8 @@ public class ApirestController {
     }
 
     @GetMapping("/items")
-    public String traerTodo() {
-        String response = restTemplate.getForObject("http://servicioOrden/servicio", String.class);
+    public String traerTodo(@RequestParam Long id) {
+        String response = restTemplate.getForObject("http://servicios/servicio/" + id, String.class);
         return response;
     }
 
