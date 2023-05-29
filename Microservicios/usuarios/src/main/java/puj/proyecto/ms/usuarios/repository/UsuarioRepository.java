@@ -9,8 +9,10 @@ import org.springframework.stereotype.Repository;
 import puj.proyecto.ms.usuarios.model.Usuario;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     public abstract Optional<Usuario> findByCorreo(String correo);
-    public abstract List<Usuario> findByRoles(String rol);
+
+    public abstract List<Usuario> findByRol(String rol);
+
     public abstract Usuario findByNombreAndPassword(String nombre, String password);
 }

@@ -1,4 +1,4 @@
-package javeriana.ms.servicio.client;
+package puj.proyecto.ms.servicio.client;
 
 import java.net.URI;
 import java.util.List;

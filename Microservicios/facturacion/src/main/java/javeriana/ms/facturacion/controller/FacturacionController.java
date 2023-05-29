@@ -18,7 +18,7 @@ import javeriana.ms.facturacion.model.Orden;
 import javeriana.ms.facturacion.service.OrdenService;
 
 @RestController
-@RequestMapping("/compras")
+@RequestMapping("/orden")
 public class FacturacionController {
 
     // @Autowired
@@ -44,7 +44,10 @@ public class FacturacionController {
     public Orden obtenerOrdenById(@PathVariable Long id) {
         return ordenService.obtenerOrdenById(id);
     }
-
+    @GetMapping("/{id}/clima")
+    public String obtenerClimaById(@PathVariable Long id) {
+        return ordenService.obtenerClimaById(id);
+    }
     @GetMapping("/cliente/{cedula}")
     public List<Orden> obtenerOrdenByCustomer(@PathVariable String cedula) {
     return ordenService.obtenerOrdenByCustomer(cedula);

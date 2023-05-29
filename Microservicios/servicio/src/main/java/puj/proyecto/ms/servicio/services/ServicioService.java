@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import puj.proyecto.ms.servicio.model.Servicio;
 import puj.proyecto.ms.servicio.repository.ServicioRepository;
@@ -24,6 +21,10 @@ public class ServicioService {
 
     public Servicio obtenerServicioId(Long id) {
         return servicioRepository.findById(id).orElseThrow();
+    }
+
+    public List<Servicio> obtenerServicioProveedor(Long id) {
+        return servicioRepository.findByProveedorId(id);
     }
 
     public List<Servicio> obtenerServicioCategoria(String categoria) {

@@ -75,7 +75,7 @@ public class UsuarioController {
         return clienteService.obtenerClienteName(nombre);
     }
 
-    @GetMapping("/cliente/cedula/{nombre}")
+    @GetMapping("/cliente/cedula/{cedula}")
     public Cliente obtenerClienteCedula(@PathVariable String cedula) {
         return clienteService.obtenerClienteCedula(cedula);
     }

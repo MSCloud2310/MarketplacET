@@ -24,18 +24,20 @@ public class Servicio {
     private String direccion;
     private String pais;
     private String ciudad;
+    private String moneda;
+    private Long proveedorId;
     private String latitud;
     private String longitud;
     private String lenguaje;
     private String clima;
-    private String codigoPostal;
+    private String continente;
 
     public Servicio() {
     }
 
     public Servicio(String nombre, Double precio, String descripcion, Boolean disponibilidad, Integer stock,
-            String foto, String categoria, String direccion, String pais, String ciudad, String latitud,
-            String longitud, String lenguaje, String clima, String codigoPostal) {
+            String foto, String categoria, String direccion, String pais, String ciudad, String moneda,
+            Long proveedorId, String latitud, String longitud, String lenguaje, String clima, String continente) {
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
@@ -46,11 +48,13 @@ public class Servicio {
         this.direccion = direccion;
         this.pais = pais;
         this.ciudad = ciudad;
+        this.moneda = moneda;
+        this.proveedorId = proveedorId;
         this.latitud = latitud;
         this.longitud = longitud;
         this.lenguaje = lenguaje;
         this.clima = clima;
-        this.codigoPostal = codigoPostal;
+        this.continente = continente;
     }
 
     public Long getId() {
@@ -173,24 +177,36 @@ public class Servicio {
         this.clima = clima;
     }
 
-    public String getCodigoPostal() {
-        return codigoPostal;
+    public String getContinente() {
+        return continente;
     }
 
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
+    public void setContinente(String continente) {
+        this.continente = continente;
+    }
+
+    public Long getId_proveedor() {
+        return proveedorId;
+    }
+
+    public void setId_proveedor(Long id_proveedor) {
+        this.proveedorId = id_proveedor;
+    }
+
+    public String getMoneda() {
+        return moneda;
+    }
+
+    public void setMoneda(String moneda) {
+        this.moneda = moneda;
     }
 
     @Override
     public String toString() {
-        return "Servicio [id=" + id + ",\n" + "nombre=" + nombre + ",\n" + "precio=" + precio + ",\n" + "descripcion="
-                + descripcion
-                + ",\n" + "disponibilidad=" + disponibilidad + ",\n" + "stock=" + stock + ",\n" + "foto=" + foto + ",\n"
-                + "categoria="
-                + categoria + ",\n" + "direccion=" + direccion + ",\n" + "pais=" + pais + ",\n" + "ciudad=" + ciudad
-                + ",\n" + "latitud="
-                + latitud + ",\n" + "longitud=" + longitud + ",\n" + "lenguaje=" + lenguaje + ",\n" + "clima=" + clima
-                + ",\n" + "codigoPostal="
-                + codigoPostal + "]";
+        return "Servicio [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", descripcion=" + descripcion
+                + ", disponibilidad=" + disponibilidad + ", stock=" + stock + ", foto=" + foto + ", categoria="
+                + categoria + ", direccion=" + direccion + ", pais=" + pais + ", ciudad=" + ciudad + ", moneda="
+                + moneda + ", proveedorId=" + proveedorId + ", latitud=" + latitud + ", longitud=" + longitud
+                + ", lenguaje=" + lenguaje + ", clima=" + clima + ", continente=" + continente + "]";
     }
 }

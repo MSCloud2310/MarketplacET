@@ -60,6 +60,48 @@ public class OrdenService {
         return ordenRepository.findByNumeroCedula(cedula);
     }
 
+    public String obtenerClimaById(Long id) {
+        Orden ordenTemp = ordenRepository.findById(id).orElseThrow();
+        // if (servicioObtenido.getCategoria().equals("alojamiento")
+        // || servicioObtenido.getCategoria().equals("transporte")) {
+
+        // }
+        // String city = servicioObtenido.getCiudad();
+        // RestTemplate restTemplate = new RestTemplate();
+        // String response = restTemplate.getForObject(
+        // WEATHER_URL_DAILY + "q={city}&mode=json&appid=" + API_KEY +
+        // "&units=metric&cnt={dias}",
+        // String.class,
+        // city, 5);
+        // System.out.println("RESPONSE WEATHER: " + response);
+
+        // JSONArray weather;
+
+        // JSONObject root = new JSONObject(response);
+
+        // JSONObject ciudad = root.getJSONObject("city");
+        // JSONObject coord = ciudad.getJSONObject("coord");
+        // servicioObtenido.setLatitud(String.valueOf(coord.getBigDecimal("lat")));
+        // servicioObtenido.setLongitud(String.valueOf(coord.getBigDecimal("lon")));
+        // JSONArray weatherObject = root.getJSONArray("list");
+        // String clima_dias = "";
+        // for (int i = 0; i < weatherObject.length(); i++) {
+        // JSONObject elementInArray = weatherObject.getJSONObject(i);
+        // weather = elementInArray.getJSONArray("weather");
+        // clima_dias += "Día: " + i + " -> ";
+        // for (int j = 0; j < weather.length(); j++) {
+        // JSONObject element = weather.getJSONObject(j);
+        // clima_dias += element.getString("description");
+        // clima_dias += " ";
+        // }
+
+        // }
+        // servicioObtenido.setClima(clima_dias);
+
+        String report = "";
+
+        return report;
+    }
     // public List<Orden> obtenerOrdenByService(Long id) {
     // return ordenRepository.findByIdServicio(id);
     // }
@@ -71,12 +113,17 @@ public class OrdenService {
     public Orden crearOrden(Orden orden) throws UnsupportedEncodingException {
         Orden newOrden = null;
         // Aquí se debe verificar que
-        // URI usuariosURI = clienteEureka.getUri("USUARIOS");
+        URI usuariosURI = clienteEureka.getUri("USUARIOS");
         URI servicioUri = clienteEureka.getUri("SERVICIOS");
         // System.out.println("URL SERVICIO: " +
         // servicioUri.resolve("/servicio/nombre?name=paseo%20esoco").toString());
         String cedula_cliente = orden.getNumeroCedula();
-
+        Object cliente = restTemplate.getForObject(usuariosURI.resolve("usuario/cliente/cedula/" + cedula_cliente),
+                Object.class);
+        if (cliente == null) {
+            System.out.println("Status: Cliente no existe");
+            return null;
+        }
         for (Servicio servicio : orden.getListaServicios()) {
             String name = URLEncoder.encode(servicio.getNombre(), StandardCharsets.UTF_8.toString());
             URI uri = UriComponentsBuilder.fromUriString(servicioUri.resolve("/servicio/nombre").toString())
@@ -89,6 +136,7 @@ public class OrdenService {
 
             // System.out.println(servicioOptional.getNombre());
             if (null == respuestaMap) {
+                System.out.println("Status: Producto no existe");
                 return null;
             }
 
@@ -98,39 +146,6 @@ public class OrdenService {
             ObjectMapper objectMapper = new ObjectMapper();
             Servicio servicioObtenido = objectMapper.convertValue(respuestaMap, Servicio.class);
 
-            if (servicioObtenido.getCategoria().equals("alojamiento")
-                    || servicioObtenido.getCategoria().equals("transporte")) {
-                String city = servicioObtenido.getCiudad();
-                RestTemplate restTemplate = new RestTemplate();
-                String response = restTemplate.getForObject(
-                        WEATHER_URL_DAILY + "q={city}&mode=json&appid=" + API_KEY + "&units=metric&cnt={dias}",
-                        String.class,
-                        city, 5);
-                System.out.println("RESPONSE WEATHER: " + response);
-
-                JSONArray weather;
-
-                JSONObject root = new JSONObject(response);
-
-                JSONObject ciudad = root.getJSONObject("city");
-                JSONObject coord = ciudad.getJSONObject("coord");
-                servicioObtenido.setLatitud(String.valueOf(coord.getBigDecimal("lat")));
-                servicioObtenido.setLongitud(String.valueOf(coord.getBigDecimal("lon")));
-                JSONArray weatherObject = root.getJSONArray("list");
-                String clima_dias = "";
-                for (int i = 0; i < weatherObject.length(); i++) {
-                    JSONObject elementInArray = weatherObject.getJSONObject(i);
-                    weather = elementInArray.getJSONArray("weather");
-                    clima_dias += "Día: " + i + " -> ";
-                    for (int j = 0; j < weather.length(); j++) {
-                        JSONObject element = weather.getJSONObject(j);
-                        clima_dias += element.getString("description");
-                        clima_dias += "   ";
-                    }
-
-                }
-                servicioObtenido.setClima(clima_dias);
-            }
             OrdenItem newOrdenItem = new OrdenItem();
             newOrdenItem.setOrden(newOrden);
             newOrdenItem.setCantidad(orden.getCantidad());
@@ -146,12 +161,9 @@ public class OrdenService {
     public Orden actualizarOrden(Long id, Orden newOrden) {
         Orden orden = ordenRepository.findById(id).orElseThrow();
 
-        orden.setFecha(newOrden.getFecha());
-        // orden.setCliente(newOrden.getCliente());
+        orden.setFecha_inicio(newOrden.getFecha_inicio());
+        orden.setFecha_fin(newOrden.getFecha_fin());
         orden.setOrdenItems(newOrden.getOrdenItems());
-        // orden.setId_servicio(newOrden.getId_servicio());
-        // orden.setTotal(newOrden.getTotal());
-
         return ordenRepository.save(orden);
     }
 

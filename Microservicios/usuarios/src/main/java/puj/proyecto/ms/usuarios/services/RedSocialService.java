@@ -11,10 +11,9 @@ import puj.proyecto.ms.usuarios.repository.RedSocialRepository;
 
 @Service
 public class RedSocialService {
+
     @Autowired
     private RedSocialRepository redSocialRepository;
-    @Autowired
-    private ProveedorService proveedorService;
 
     public List<RedSocial> obtenerRedesSociales() {
         return (List<RedSocial>) redSocialRepository.findAll();

@@ -7,7 +7,6 @@ puj/proyecto/ms/servicio/model/PaseoEcologico.class
 puj/proyecto/ms/servicio/controllers/PaseoEcologicoController.class
 puj/proyecto/ms/servicio/model/Alojamiento.class
 puj/proyecto/ms/servicio/services/AlojamientoService.class
-javeriana/ms/servicio/client/ClienteEureka.class
 puj/proyecto/ms/servicio/model/Transporte.class
 puj/proyecto/ms/servicio/repository/PaseoEcologicoRepository.class
 puj/proyecto/ms/servicio/services/AlimentacionService.class
@@ -16,6 +15,7 @@ puj/proyecto/ms/servicio/repository/ServicioRepository.class
 puj/proyecto/ms/servicio/controllers/AlojamientoController.class
 puj/proyecto/ms/servicio/ServicioApplication.class
 puj/proyecto/ms/servicio/controllers/ServicioController.class
+puj/proyecto/ms/servicio/client/ClienteEureka.class
 puj/proyecto/ms/servicio/model/TipoTransporte.class
 puj/proyecto/ms/servicio/repository/TransporteRepository.class
 puj/proyecto/ms/servicio/services/PaseoEcologicoService.class

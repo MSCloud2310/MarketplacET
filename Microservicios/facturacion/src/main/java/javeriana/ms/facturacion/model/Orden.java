@@ -25,7 +25,11 @@ public class Orden {
 
     private String ordenNo;
 
-    private String fecha;
+    private String fecha_inicio;
+
+    private String fecha_fin;
+
+    private String clima;
 
     @JsonProperty("dias")
     private Integer numDias;
@@ -51,25 +55,33 @@ public class Orden {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orden")
     private List<OrdenItem> ordenItems;
 
-    public Orden(String ordenNo, String fecha, List<OrdenItem> ordenItems) {
+    public Orden(String ordenNo, String fecha_inicio, String fecha_fin, String clima, List<OrdenItem> ordenItems) {
         this.ordenNo = ordenNo;
-        this.fecha = fecha;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
+        this.clima = clima;
         this.ordenItems = ordenItems;
     }
 
-    public Orden(String ordenNo, String fecha, List<Servicio> listaServicios, String nombreCliente,
+    public Orden(String ordenNo, String fecha_inicio, String fecha_fin, String clima, List<Servicio> listaServicios,
+            String nombreCliente,
             String numeroCedula) {
         this.ordenNo = ordenNo;
-        this.fecha = fecha;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
+        this.clima = clima;
         this.listaServicios = listaServicios;
         this.nombreCliente = nombreCliente;
         this.numeroCedula = numeroCedula;
     }
 
-    public Orden(String ordenNo, String fecha, List<Servicio> listaServicios, String nombreCliente, String numeroCedula,
+    public Orden(String ordenNo, String fecha_inicio, String fecha_fin, String clima, List<Servicio> listaServicios,
+            String nombreCliente, String numeroCedula,
             Integer cantidad, BigDecimal precio) {
         this.ordenNo = ordenNo;
-        this.fecha = fecha;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
+        this.clima = clima;
         this.listaServicios = listaServicios;
         this.nombreCliente = nombreCliente;
         this.numeroCedula = numeroCedula;
@@ -96,12 +108,20 @@ public class Orden {
         this.ordenNo = ordenNo;
     }
 
-    public String getFecha() {
-        return fecha;
+    public String getFecha_inicio() {
+        return fecha_inicio;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFecha_inicio(String fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
+    }
+
+    public String getFecha_fin() {
+        return fecha_fin;
+    }
+
+    public void setFecha_fin(String fecha_fin) {
+        this.fecha_fin = fecha_fin;
     }
 
     public List<OrdenItem> getOrdenItems() {
@@ -166,6 +186,14 @@ public class Orden {
 
     public void setNumDias(Integer numDias) {
         this.numDias = numDias;
+    }
+
+    public String getClima() {
+        return clima;
+    }
+
+    public void setClima(String clima) {
+        this.clima = clima;
     }
 
 }

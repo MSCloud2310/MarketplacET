@@ -11,5 +11,7 @@ import javeriana.ms.facturacion.model.Orden;
 public interface OrdenRepository extends JpaRepository<Orden, Long> {
     public abstract List<Orden> findByNumeroCedula(String cedula);
 
+    public abstract Orden findByOrdenNo(String ordenNo);
+
     // public abstract List<Orden> findByIdServicio(Long id);
 }

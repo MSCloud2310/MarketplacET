@@ -15,11 +15,12 @@ public class PaseoEcologico extends Servicio {
     }
 
     public PaseoEcologico(String nombre, Double precio, String descripcion, Boolean disponibilidad, Integer stock,
-            String foto, String categoria, String direccion, String pais, String ciudad, String latitud,
-            String longitud, String lenguaje, String clima, String codigoPostal) {
-        super(nombre, precio, descripcion, disponibilidad, stock, foto, categoria, direccion, pais, ciudad, latitud,
-                longitud, lenguaje, clima, codigoPostal);
+            String foto, String categoria, String direccion, String pais, String ciudad, String moneda,
+            Long proveedorId, String latitud, String longitud, String lenguaje, String clima, String codigoPostal) {
+        super(nombre, precio, descripcion, disponibilidad, stock, foto, categoria, direccion, pais, ciudad, moneda,
+                proveedorId, latitud, longitud, lenguaje, clima, codigoPostal);
     }
+
 
     public PaseoEcologico(String origen, String destino, String fecha_salida, String fecha_llegada,
             String guia_turistico, String recomendaciones) {

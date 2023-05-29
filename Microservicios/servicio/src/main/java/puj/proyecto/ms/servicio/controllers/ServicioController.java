@@ -1,5 +1,9 @@
 package puj.proyecto.ms.servicio.controllers;
 
+import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
+import com.esri.arcgisruntime.concurrent.ListenableFuture;
+import com.esri.arcgisruntime.tasks.geocode.GeocodeResult;
+import com.esri.arcgisruntime.tasks.geocode.LocatorTask;
 import java.text.ParseException;
 
 import java.util.List;
@@ -37,6 +41,9 @@ public class ServicioController {
     private static final String API_KEY = "68b394aa15886222c694fd3a56f664ff";
     private static final String WEATHER_URL_ONE = "http://api.openweathermap.org/data/2.5/weather?";
     private static final String WEATHER_URL_DAILY = "http://api.openweathermap.org/data/2.5/forecast/daily?";
+    private static final String URL_COUNTRIES = "https://restcountries.com/v3.1/name/";
+    private static final String URL_MAPS = "https://www.google.com/maps/place/";
+
     @Autowired
     Environment environment;
 
@@ -65,6 +72,11 @@ public class ServicioController {
         return servicioService.obtenerServicioId(id);
     }
 
+    @GetMapping("/proveedor/{id}")
+    public List<Servicio> obtenerServicioProveedor(@PathVariable Long id) {
+        return servicioService.obtenerServicioProveedor(id);
+    }
+
     // http://localhost:9999/servicio/nombre?nombre=
     @GetMapping("/nombre")
     public Servicio obtenerServicioNombre(@RequestParam String name) {
@@ -82,6 +94,13 @@ public class ServicioController {
         return servicioService.obtenerServicioTexto(cadena);
     }
 
+    @GetMapping("/ubicacion")
+    public String ubicacionServicio() {
+        
+        return "https://www.google.com/maps/@4.6312857,-74.0663938,17z?entry=ttu";
+        // return servicioService.obtenerServicioTexto(cadena);
+    }
+
     // http://localhost:8080/servicio/stock/nombre?nombre=alojamiento
     @GetMapping("stock/nombre/{nombre}")
     public Integer obtenerStockServicio(@PathVariable String nombre) {
@@ -94,15 +113,21 @@ public class ServicioController {
 
     @PostMapping("/agregar-alojamiento")
     public Servicio agregarAlojamiento(@RequestBody Alojamiento alojamiento) throws ParseException {
-        // String uri = "https://restcountries.com/v3.1/name/" + alojamiento.getPais();
-        // System.out.println("URIII; " + uri);
-        // RestTemplate restTemplate = new RestTemplate();
-        // String response = restTemplate.getForObject(uri, String.class);
-        // System.out.println("REST COUNTRIES: " + response);
+        RestTemplate restTemplate = new RestTemplate();
+        String info_pais = restTemplate.getForObject(
+                URL_COUNTRIES + alojamiento.getPais() + "?fields=currencies,languages,continents", String.class);
+        System.out.println("REST COUNTRIES: " + info_pais);
+        JSONArray pais = new JSONArray(info_pais);
+
+        for (int i = 0; i < pais.length(); i++) {
+            JSONObject elementInArray = pais.getJSONObject(i);
+            alojamiento.setMoneda(elementInArray.get("currencies").toString());
+            alojamiento.setLenguaje(elementInArray.get("languages").toString());
+            alojamiento.setContinente(elementInArray.get("continents").toString());
+        }
         // http://api.openweathermap.org/data/2.5/weather?q=Lima&APPID=68b394aa15886222c694fd3a56f664ff
         // http://api.openweathermap.org/data/2.5/forecast/daily?q=Medellin&mode=json&appid=68b394aa15886222c694fd3a56f664ff&units=metric&cnt=5
         String city = alojamiento.getCiudad();
-        RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(
                 WEATHER_URL_DAILY + "q={city}&mode=json&appid=" + API_KEY + "&units=metric&cnt={dias}", String.class,
                 city, 5);
@@ -135,11 +160,22 @@ public class ServicioController {
 
     @PostMapping("/agregar-paseo-ecologico")
     public Servicio agregarPaseoEcologico(@RequestBody PaseoEcologico paseoEcologico) {
-        String city = paseoEcologico.getCiudad();
         RestTemplate restTemplate = new RestTemplate();
+        String info_pais = restTemplate.getForObject(
+                URL_COUNTRIES + paseoEcologico.getPais() + "?fields=currencies,languages,continents", String.class);
+        System.out.println("REST COUNTRIES: " + info_pais);
+        JSONArray pais = new JSONArray(info_pais);
+
+        for (int i = 0; i < pais.length(); i++) {
+            JSONObject elementInArray = pais.getJSONObject(i);
+            paseoEcologico.setMoneda(elementInArray.get("currencies").toString());
+            paseoEcologico.setLenguaje(elementInArray.get("languages").toString());
+            paseoEcologico.setContinente(elementInArray.get("continents").toString());
+        }
+        String city = paseoEcologico.getCiudad();
         String response = restTemplate.getForObject(WEATHER_URL_ONE + "q={city}&APPID=" + API_KEY, String.class, city);
-        System.out.println("REST COUNTRIES: " + response);
-        
+        System.out.println("WEATHER DAY: " + response);
+
         String description = null;
 
         JSONObject root = new JSONObject(response);
@@ -160,8 +196,19 @@ public class ServicioController {
 
     @PostMapping("/agregar-alimentacion/tipo/{id}")
     public Servicio agregarAlimentacion(@RequestBody Alimentacion alimentacion) {
-        String city = alimentacion.getCiudad();
         RestTemplate restTemplate = new RestTemplate();
+        String info_pais = restTemplate.getForObject(
+                URL_COUNTRIES + alimentacion.getPais() + "?fields=currencies,languages,continents", String.class);
+        System.out.println("REST COUNTRIES: " + info_pais);
+        JSONArray pais = new JSONArray(info_pais);
+
+        for (int i = 0; i < pais.length(); i++) {
+            JSONObject elementInArray = pais.getJSONObject(i);
+            alimentacion.setMoneda(elementInArray.get("currencies").toString());
+            alimentacion.setLenguaje(elementInArray.get("languages").toString());
+            alimentacion.setContinente(elementInArray.get("continents").toString());
+        }
+        String city = alimentacion.getCiudad();
         String response = restTemplate.getForObject(WEATHER_URL_ONE + "q={city}&APPID=" + API_KEY, String.class, city);
         System.out.println("REST COUNTRIES: " + response);
         // JSONArray jsonArray = new JSONObject(response).getJSONArray("weather");
@@ -187,13 +234,20 @@ public class ServicioController {
 
     @PostMapping("/agregar-transporte/tipo/{id}")
     public Servicio agregarTransporte(@RequestBody Transporte transporte) {
-        // String uri = "https://restcountries.com/v3.1/name/{nombre}";
-        // RestTemplate restTemplate = new RestTemplate();
-        // String nombre = transporte.getPais();
-        // String response = restTemplate.getForObject(uri, String.class, nombre);
-        // System.out.println("REST COUNTRIES: " + response);
-        String city = transporte.getCiudad();
         RestTemplate restTemplate = new RestTemplate();
+        String info_pais = restTemplate.getForObject(
+                URL_COUNTRIES + transporte.getPais() + "?fields=currencies,languages,continents", String.class);
+        System.out.println("REST COUNTRIES: " + info_pais);
+        JSONArray pais = new JSONArray(info_pais);
+
+        for (int i = 0; i < pais.length(); i++) {
+            JSONObject elementInArray = pais.getJSONObject(i);
+            transporte.setMoneda(elementInArray.get("currencies").toString());
+            transporte.setLenguaje(elementInArray.get("languages").toString());
+            transporte.setContinente(elementInArray.get("continents").toString());
+        }
+        String city = transporte.getCiudad();
+
         String response = restTemplate.getForObject(WEATHER_URL_ONE + "q={city}&APPID=" + API_KEY, String.class, city);
         System.out.println("REST COUNTRIES: " + response);
 

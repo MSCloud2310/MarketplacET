@@ -22,8 +22,8 @@ public class UsuarioService {
         return usuarioRepository.findById(id).orElseThrow();
     }
 
-    public List<Usuario> findByRol(String nombre) {
-        return usuarioRepository.findByRoles(nombre);
+    public List<Usuario> findByRol(String rol) {
+        return usuarioRepository.findByRol(rol);
     }
 
     public Optional<Usuario> findByCorreo(String nombre) {

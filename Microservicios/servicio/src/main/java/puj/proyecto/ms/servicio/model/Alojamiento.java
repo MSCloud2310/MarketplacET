@@ -8,9 +8,8 @@ public class Alojamiento extends Servicio {
     private String fecha_fin;
     private Integer cantidad_personas;
 
+    public Alojamiento() {
 
-    public Alojamiento () {
-        
     }
 
     public Alojamiento(String fecha_inicio, String fecha_fin, Integer cantidad_personas) {
@@ -20,14 +19,10 @@ public class Alojamiento extends Servicio {
     }
 
     public Alojamiento(String nombre, Double precio, String descripcion, Boolean disponibilidad, Integer stock,
-            String foto, String categoria, String direccion, String pais, String ciudad, String latitud,
-            String longitud, String lenguaje, String clima, String codigoPostal, String fecha_inicio, String fecha_fin,
-            Integer cantidad_personas) {
-        super(nombre, precio, descripcion, disponibilidad, stock, foto, categoria, direccion, pais, ciudad, latitud,
-                longitud, lenguaje, clima, codigoPostal);
-        this.fecha_inicio = fecha_inicio;
-        this.fecha_fin = fecha_fin;
-        this.cantidad_personas = cantidad_personas;
+            String foto, String categoria, String direccion, String pais, String ciudad, String moneda,
+            Long proveedorId, String latitud, String longitud, String lenguaje, String clima, String continente) {
+        super(nombre, precio, descripcion, disponibilidad, stock, foto, categoria, direccion, pais, ciudad, moneda,
+                proveedorId, latitud, longitud, lenguaje, clima, continente);
     }
 
     public String getFecha_inicio() {

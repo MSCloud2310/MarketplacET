@@ -11,5 +11,6 @@ import puj.proyecto.ms.servicio.model.Servicio;
 public interface ServicioRepository extends JpaRepository<Servicio, Long> {
     public abstract List<Servicio> findByCategoria(String categoria);
 
+    public abstract List<Servicio> findByProveedorId(Long id);
     // public abstract List<Servicio> findByNombre(String nombre);
 }

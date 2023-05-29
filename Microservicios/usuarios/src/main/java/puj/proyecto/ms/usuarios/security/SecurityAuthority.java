@@ -1,20 +1,19 @@
-package puj.proyecto.ms.usuarios.security;
+// package puj.proyecto.ms.usuarios.security;
 
-import org.springframework.security.core.GrantedAuthority;
+// import org.springframework.security.core.GrantedAuthority;
 
-import puj.proyecto.ms.usuarios.model.Rol;
+// import puj.proyecto.ms.usuarios.model.Rol;
 
+// public class SecurityAuthority implements GrantedAuthority {
 
-public class SecurityAuthority implements GrantedAuthority {
+// private final Rol roles;
 
-    private final Rol roles;
+// public SecurityAuthority(Rol roles) {
+// this.roles = roles;
+// }
 
-    public SecurityAuthority(Rol roles) {
-        this.roles = roles;
-    }
-
-    @Override
-    public String getAuthority() {
-        return roles.getRol().toString();
-    }    
-}
+// @Override
+// public String getAuthority() {
+// return roles.getRol().toString();
+// }
+// }

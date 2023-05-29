@@ -3,6 +3,7 @@
 /home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/model/Servicio.java
 /home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/model/TipoTransporte.java
 /home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/model/Alojamiento.java
+/home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/client/ClienteEureka.java
 /home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/services/AlimentacionService.java
 /home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/model/TipoComida.java
 /home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/repository/PaseoEcologicoRepository.java
@@ -12,7 +13,6 @@
 /home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/ServicioApplication.java
 /home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/controllers/AlojamientoController.java
 /home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/repository/AlimentacionRepository.java
-/home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/javeriana/ms/servicio/client/ClienteEureka.java
 /home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/services/AlojamientoService.java
 /home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/model/Calificacion.java
 /home/estudiante/Documents/MarketplacET/Microservicios/servicio/src/main/java/puj/proyecto/ms/servicio/controllers/PaseoEcologicoController.java
