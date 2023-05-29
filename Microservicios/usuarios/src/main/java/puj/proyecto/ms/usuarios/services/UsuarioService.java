@@ -3,6 +3,7 @@ package puj.proyecto.ms.usuarios.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,11 +54,10 @@ public class UsuarioService {
     }
 
     public String login(Usuario user) {
-        System.out.println("datosss" + user.getNombre() + user.getPassword());
         try {
-            Usuario userExits = usuarioRepository.findByNombreAndPassword(user.getNombre(),
+            Usuario userExits = usuarioRepository.findByIdAndPassword(user.getId(),
                     user.getPassword());
-            return userExits.getNombre();
+            return userExits.getRol();
         } catch (Exception e) {
             return "no existe";
         }
