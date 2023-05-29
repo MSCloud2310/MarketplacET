@@ -5,10 +5,6 @@ COPY pom.xml .
 
 RUN mvn clean package
 
-# Para solo ejecutar hasta este punto:
-# docker build --target builder -t calculadora-build
-
-#-----------------------------------
 FROM khipu/openjdk17-alpine AS server
 ENV SERVER_PORT=9070
 EXPOSE ${SERVER_PORT}
