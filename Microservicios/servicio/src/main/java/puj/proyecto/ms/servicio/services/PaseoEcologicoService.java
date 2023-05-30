@@ -26,10 +26,6 @@ public class PaseoEcologicoService {
         return paseoEcologicoRepository.findById(id).orElseThrow();
     }
 
-    // public PaseoEcologico obtenerPaseoEcologicoName(String nombre) {
-    // return paseoEcologicoRepository.findByNombre(nombre);
-    // }
-
     public PaseoEcologico agregarPaseoEcologico(PaseoEcologico pasEco) {
         RestTemplate restTemplate = new RestTemplate();
         Long id_proveedor = pasEco.getId_proveedor();

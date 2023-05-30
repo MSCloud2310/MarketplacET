@@ -36,12 +36,6 @@ public class AlojamientoController {
         return alojamientoService.obtenerAlojamientoId(id);
     }
 
-    // http://localhost:8080/usuario/query/cliente?nombre=Mau
-    // @GetMapping("/nombre/{nombre}")
-    // public PaseoEcologico obtenerRedSocialNombre(@PathVariable String nombre) {
-    //     return paseoEcologicoService.obtenerPaseoEcologicoNombre(nombre);
-    // }
-
     @PostMapping()
     public Alojamiento agregarAlojamiento(@RequestBody Alojamiento alojamiento) {
         return alojamientoService.agregarAlojamiento(alojamiento);

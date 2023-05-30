@@ -36,12 +36,6 @@ public class PaseoEcologicoController {
         return paseoEcologicoService.obtenerPaseoEcologicoId(id);
     }
 
-    // http://localhost:8080/usuario/query/cliente?nombre=Mau
-    // @GetMapping("/nombre/{nombre}")
-    // public PaseoEcologico obtenerRedSocialNombre(@PathVariable String nombre) {
-    //     return paseoEcologicoService.obtenerPaseoEcologicoNombre(nombre);
-    // }
-
     @PostMapping()
     public PaseoEcologico agregarPaseoEcologico(@RequestBody PaseoEcologico paseoEcologico) {
         return paseoEcologicoService.agregarPaseoEcologico(paseoEcologico);

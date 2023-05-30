@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import com.google.maps.StaticMapsApi;
 
 import puj.proyecto.ms.servicio.model.Alimentacion;
 import puj.proyecto.ms.servicio.model.Alojamiento;
@@ -92,9 +93,7 @@ public class ServicioController {
 
     @GetMapping("/ubicacion")
     public String ubicacionServicio() {
-        
         return "https://www.google.com/maps/@4.6312857,-74.0663938,17z?entry=ttu";
-        // return servicioService.obtenerServicioTexto(cadena);
     }
 
     // http://localhost:8080/servicio/stock/nombre?nombre=alojamiento
@@ -207,10 +206,8 @@ public class ServicioController {
         String city = alimentacion.getCiudad();
         String response = restTemplate.getForObject(WEATHER_URL_ONE + "q={city}&APPID=" + API_KEY, String.class, city);
         System.out.println("REST COUNTRIES: " + response);
-        // JSONArray jsonArray = new JSONObject(response).getJSONArray("weather");
-        String description = null;
 
-        // List<Example> weatherList = new ArrayList<>();
+        String description = null;
 
         JSONObject root = new JSONObject(response);
 
@@ -256,6 +253,10 @@ public class ServicioController {
         transporte.setLongitud(String.valueOf(coord.getBigDecimal("lon")));
         JSONArray weatherObject = root.getJSONArray("weather");
 
+        String coodernadas = generateMapUrl(lat, long);
+
+        
+
         for (int i = 0; i < weatherObject.length(); i++) {
             JSONObject elementInArray = weatherObject.getJSONObject(i);
             description = elementInArray.getString("description");
@@ -263,6 +264,22 @@ public class ServicioController {
 
         transporte.setClima(description);
         return transporteService.agregarTransporte(transporte);
+    }
+
+    public String generateMapUrl(double latitude, double longitude) {
+        String apiKey = ""; // Reemplaza con tu API key de Google Maps
+
+        String url = StaticMapsApi.newRequestContext()
+                .center(latitude, longitude)
+                .marker(StaticMapsApi.Marker.newMarker()
+                        .location(latitude, longitude)
+                        .build())
+                .zoom(15)
+                .size(600, 400)
+                .key(apiKey)
+                .toString();
+
+        return url;
     }
 
     @PostMapping("/agregar/servicio")

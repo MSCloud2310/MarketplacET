@@ -1,10 +1,14 @@
 package puj.proyecto.ms.servicio.model;
 
+import org.hibernate.mapping.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,6 +35,39 @@ public class Servicio {
     private String lenguaje;
     private String clima;
     private String continente;
+    private String ubicacion;
+
+    @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
+    private List<Pregunta> preguntas;
+
+    @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
+    private List<Calificacion> calificaciones;
+
+   
+   
+    public Servicio(String nombre, Double precio, String descripcion, Boolean disponibilidad, Integer stock,
+            String foto, String categoria, String direccion, String pais, String ciudad, String moneda,
+            Long proveedorId, String latitud, String longitud, String lenguaje, String clima, String continente,
+            String ubicacion) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.disponibilidad = disponibilidad;
+        this.stock = stock;
+        this.foto = foto;
+        this.categoria = categoria;
+        this.direccion = direccion;
+        this.pais = pais;
+        this.ciudad = ciudad;
+        this.moneda = moneda;
+        this.proveedorId = proveedorId;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.lenguaje = lenguaje;
+        this.clima = clima;
+        this.continente = continente;
+        this.ubicacion = ubicacion;
+    }
 
     public Servicio() {
     }
@@ -55,6 +92,40 @@ public class Servicio {
         this.lenguaje = lenguaje;
         this.clima = clima;
         this.continente = continente;
+    }
+
+    
+
+    public Long getProveedorId() {
+        return proveedorId;
+    }
+
+    public void setProveedorId(Long proveedorId) {
+        this.proveedorId = proveedorId;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public List <Pregunta> getPreguntas() {
+        return preguntas;
+    }
+
+    public void setPreguntas(List<Pregunta> preguntas) {
+        this.preguntas = preguntas;
+    }
+
+    public List<Calificacion> getCalificaciones() {
+        return calificaciones;
+    }
+
+    public void setCalificaciones(List<Calificacion> calificaciones) {
+        this.calificaciones = calificaciones;
     }
 
     public Long getId() {
