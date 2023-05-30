@@ -1,12 +1,15 @@
 package puj.proyecto.ms.servicio.model;
 
-import jakarta.persistence.Access;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Pregunta {
@@ -14,7 +17,7 @@ public class Pregunta {
     @Column(name = "id_calificacion")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-}
+
     private String pregunta;
     private String respuesta;
 

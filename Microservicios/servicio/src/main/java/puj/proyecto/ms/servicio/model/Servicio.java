@@ -1,6 +1,7 @@
 package puj.proyecto.ms.servicio.model;
 
-import org.hibernate.mapping.List;
+
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -39,10 +40,6 @@ public class Servicio {
 
     @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
     private List<Pregunta> preguntas;
-
-    @OneToMany(mappedBy = "servicio", cascade = CascadeType.ALL)
-    private List<Calificacion> calificaciones;
-
    
    
     public Servicio(String nombre, Double precio, String descripcion, Boolean disponibilidad, Integer stock,
@@ -118,14 +115,6 @@ public class Servicio {
 
     public void setPreguntas(List<Pregunta> preguntas) {
         this.preguntas = preguntas;
-    }
-
-    public List<Calificacion> getCalificaciones() {
-        return calificaciones;
-    }
-
-    public void setCalificaciones(List<Calificacion> calificaciones) {
-        this.calificaciones = calificaciones;
     }
 
     public Long getId() {

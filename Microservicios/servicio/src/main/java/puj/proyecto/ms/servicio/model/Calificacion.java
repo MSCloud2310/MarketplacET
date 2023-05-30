@@ -22,10 +22,8 @@ public class Calificacion {
     private int estrellas;
     private String comentario;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JsonProperty(access = Access.WRITE_ONLY)
-    private Servicio servicio;
-    private Long id_cliente;
+    private Long servicio;
+    private Long cliente;
 
     public int getEstrellas() {
         return estrellas;
@@ -43,20 +41,26 @@ public class Calificacion {
         this.comentario = comentario;
     }
 
-    public Servicio getServicio() {
+    public Long getServicio() {
         return servicio;
     }
 
-    public void setServicio(Servicio servicio) {
+    public void setServicio(Long servicio) {
         this.servicio = servicio;
     }
 
-    public Long getId_cliente() {
-        return id_cliente;
+    public Long getCliente() {
+        return cliente;
     }
 
-    public void setId_cliente(Long id_cliente) {
-        this.id_cliente = id_cliente;
+    public void setCliente(Long cliente) {
+        this.cliente = cliente;
+    }
+
+    @Override
+    public String toString() {
+        return "Calificacion [id=" + id + ", estrellas=" + estrellas + ", comentario=" + comentario + ", servicio="
+                + servicio + ", id_cliente=" + cliente + "]";
     }
 
 }

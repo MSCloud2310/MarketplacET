@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import com.google.common.collect.MapMaker;
 import com.google.maps.StaticMapsApi;
+import com.google.maps.model.LatLng;
 
 import puj.proyecto.ms.servicio.model.Alimentacion;
 import puj.proyecto.ms.servicio.model.Alojamiento;
@@ -39,7 +42,6 @@ public class ServicioController {
     private static final String WEATHER_URL_ONE = "http://api.openweathermap.org/data/2.5/weather?";
     private static final String WEATHER_URL_DAILY = "http://api.openweathermap.org/data/2.5/forecast/daily?";
     private static final String URL_COUNTRIES = "https://restcountries.com/v3.1/name/";
-    private static final String URL_MAPS = "https://www.google.com/maps/place/";
 
     @Autowired
     Environment environment;
@@ -253,7 +255,7 @@ public class ServicioController {
         transporte.setLongitud(String.valueOf(coord.getBigDecimal("lon")));
         JSONArray weatherObject = root.getJSONArray("weather");
 
-        String coodernadas = generateMapUrl(lat, long);
+        //String coodernadas = generateMapUrl(lat, long);
 
         
 
@@ -266,21 +268,22 @@ public class ServicioController {
         return transporteService.agregarTransporte(transporte);
     }
 
-    public String generateMapUrl(double latitude, double longitude) {
-        String apiKey = ""; // Reemplaza con tu API key de Google Maps
+    // public String generateMapUrl(long latitude, long longitude) {
+    //     String apiKey = ""; // Reemplaza con tu API key de Google Maps
+    //     MapMaker marker = new MapMaker();
+    //     LatLng coordLatLng = new LatLng(latitude, longitude);
+    //     String url = StaticMapsApi.newRequest(null, null)
+    //             .center(coordLatLng).maptype(null)
+    //             .markers(marker)
+    //                     .location(latitude, longitude)
+    //                     .build())
+    //             .zoom(15)
+    //             .size(600, 400)
+    //             .key(apiKey)
+    //             .toString();
 
-        String url = StaticMapsApi.newRequestContext()
-                .center(latitude, longitude)
-                .marker(StaticMapsApi.Marker.newMarker()
-                        .location(latitude, longitude)
-                        .build())
-                .zoom(15)
-                .size(600, 400)
-                .key(apiKey)
-                .toString();
-
-        return url;
-    }
+    //     return url;
+    // }
 
     @PostMapping("/agregar/servicio")
     public Servicio agregarServicio(@RequestBody Servicio servicio) {
@@ -301,5 +304,5 @@ public class ServicioController {
     @DeleteMapping("/eliminar/servicio/{id}")
     public void eliminarProveedor(@PathVariable Long id) {
         servicioService.eliminarServicio(id);
-    }
+    } 
 }
