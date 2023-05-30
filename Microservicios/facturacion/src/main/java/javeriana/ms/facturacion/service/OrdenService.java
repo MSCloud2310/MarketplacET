@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -28,7 +29,8 @@ public class OrdenService {
     private static final String API_KEY = "68b394aa15886222c694fd3a56f664ff";
     private static final String WEATHER_URL_ONE = "http://api.openweathermap.org/data/2.5/weather?";
     private static final String WEATHER_URL_DAILY = "http://api.openweathermap.org/data/2.5/forecast/daily?";
-
+    @Autowired
+    Environment environment;
     @Autowired
     private ClienteEureka clienteEureka;
 
@@ -110,13 +112,8 @@ public class OrdenService {
 
     public Orden crearOrden(Orden orden) throws UnsupportedEncodingException {
         Orden newOrden = null;
-        // Aquí se debe verificar que
-        URI usuariosURI = clienteEureka.getUri("USUARIOS");
-        URI servicioUri = clienteEureka.getUri("SERVICIOS");
-        // System.out.println("URL SERVICIO: " +
-        // servicioUri.resolve("/servicio/nombre?name=paseo%20esoco").toString());
         String cedula_cliente = orden.getNumeroCedula();
-        Object cliente = restTemplate.getForObject(usuariosURI.resolve("usuario/cliente/cedula/" + cedula_cliente),
+        Object cliente = restTemplate.getForObject(environment.getProperty("urlCliente")+ cedula_cliente,
                 Object.class);
         if (cliente == null) {
             System.out.println("Status: Cliente no existe");
@@ -124,7 +121,7 @@ public class OrdenService {
         }
         for (Servicio servicio : orden.getListaServicios()) {
             String name = URLEncoder.encode(servicio.getNombre(), StandardCharsets.UTF_8.toString());
-            URI uri = UriComponentsBuilder.fromUriString(servicioUri.resolve("/servicio/nombre").toString())
+            URI uri = UriComponentsBuilder.fromUriString(environment.getProperty("urlServicio"))
                     .queryParam("name", name)
                     .build(true)
                     .toUri();

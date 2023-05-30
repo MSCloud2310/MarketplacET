@@ -11,7 +11,7 @@ import puj.proyecto.ms.servicio.repository.ServicioRepository;
 
 @Service
 public class ServicioService {
-
+    
     @Autowired
     private ServicioRepository servicioRepository;
 

@@ -1,4 +1,4 @@
-FROM maven:3 AS build
+FROM maven AS build
 WORKDIR /app-src
 COPY src src
 COPY pom.xml .

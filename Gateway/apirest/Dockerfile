@@ -1,4 +1,4 @@
-FROM maven:3 AS build
+FROM maven AS build
 WORKDIR /app-src
 COPY src src
 COPY pom.xml .
@@ -6,7 +6,7 @@ COPY pom.xml .
 RUN mvn clean package
 
 FROM khipu/openjdk17-alpine AS server
-ENV SERVER_PORT=9090
+ENV SERVER_PORT=8888
 EXPOSE ${SERVER_PORT}
 WORKDIR /
 

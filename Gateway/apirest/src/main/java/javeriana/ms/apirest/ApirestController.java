@@ -2,7 +2,6 @@ package javeriana.ms.apirest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -31,12 +30,7 @@ public class ApirestController {
     RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
-    @GetMapping()
-    public String login() {
-        return "Hello world!";
-    }
-
+    
     @PostMapping("/login")
     public String login(@RequestBody String requestBody) {
         HttpHeaders headers = new HttpHeaders();
@@ -71,13 +65,13 @@ public class ApirestController {
     }
 
     @GetMapping("/servicios")
-    public String traerTodo(@RequestParam String servicio) {
-        String response = restTemplate.getForObject("http://servicios/servicio/"+servicio, String.class);
+    public String traerTodo() {
+        String response = restTemplate.getForObject("http://servicios/servicio", String.class);
         return response;
     }
 
-    @GetMapping("/categoria")
-    public String traerCategoria(@RequestParam String nombre) {
+    @GetMapping("/categoria/{categoria}")
+    public String traerCategoria(@PathVariable String nombre) {
         String response = restTemplate.getForObject("http://servicios/servicio/categoria/"+nombre, String.class,nombre);
         return response;
     }
@@ -89,9 +83,21 @@ public class ApirestController {
         return response;
     }
 
-    @GetMapping("/servicio")
-    public String traerUno(@PathVariable int servicio) {
-        String response = restTemplate.getForObject("http://servicios/servicio/"+servicio, String.class,servicio);
+    @GetMapping("/servicio/{id}")
+    public String obtenerServicioId(@PathVariable Long id) {
+        String response = restTemplate.getForObject("http://servicios/servicio/"+id, String.class,id);
+        return response;
+    }
+
+    @GetMapping("/cliente/{id}")
+    public String obtenerClienteId(@PathVariable Long id) {
+        String response = restTemplate.getForObject("http://usuarios/usuario/cliente/"+id, String.class,id);
+        return response;
+    }
+
+    @GetMapping("/proveedor/{id}")
+    public String obtenerProveedorId(@PathVariable Long id) {
+        String response = restTemplate.getForObject("http://usuarios/usuario/proveedor/"+id, String.class,id);
         return response;
     }
 
