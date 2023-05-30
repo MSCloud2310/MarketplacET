@@ -22,11 +22,6 @@ public class OrdenItemService {
         return ordenItemRepository.findById(id).orElseThrow();
     }
 
-    // public PaseoEcologico obtenerPaseoEcologicoName(String nombre) {
-    // return paseoEcologicoRepository.findByNombre(nombre);
-    // }
-    
-
     public OrdenItem crearOrden(OrdenItem orden) {
         return ordenItemRepository.save(orden);
     }
@@ -34,10 +29,9 @@ public class OrdenItemService {
     public OrdenItem actualizarOrden(Long id, OrdenItem newOrden) {
         OrdenItem orden = ordenItemRepository.findById(id).orElseThrow();
 
-        // orden.setCantidad(newOrden.getCantidad());
-        // orden.setPrecio(newOrden.getPrecio());
-        // orden.setId_orden(newOrden.getId_orden());
-        // orden.setId_servicio(newOrden.getId_servicio());
+        orden.setCantidad(newOrden.getCantidad());
+        orden.setPrecio(newOrden.getPrecio());
+        orden.setId_servicio(newOrden.getId_servicio());
 
         return ordenItemRepository.save(orden);
     }

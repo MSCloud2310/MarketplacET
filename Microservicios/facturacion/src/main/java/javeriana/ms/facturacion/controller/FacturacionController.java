@@ -20,15 +20,6 @@ import javeriana.ms.facturacion.service.OrdenService;
 @RestController
 @RequestMapping("/orden")
 public class FacturacionController {
-
-    // @Autowired
-    // private ClienteEureka clienteEureka;
-
-    // @Bean
-    // public RestTemplate restTesmplate() {
-    // return new RestTemplate();
-    // }
-
     @Autowired
     Environment environment;
 
@@ -44,47 +35,27 @@ public class FacturacionController {
     public Orden obtenerOrdenById(@PathVariable Long id) {
         return ordenService.obtenerOrdenById(id);
     }
+
     @GetMapping("/{id}/clima")
     public String obtenerClimaById(@PathVariable Long id) {
         return ordenService.obtenerClimaById(id);
     }
+
     @GetMapping("/cliente/{cedula}")
     public List<Orden> obtenerOrdenByCustomer(@PathVariable String cedula) {
-    return ordenService.obtenerOrdenByCustomer(cedula);
+        return ordenService.obtenerOrdenByCustomer(cedula);
     }
-
-    // @GetMapping("/servicio/{id}")
-    // public List<Orden> obtenerOrdenByService(@PathVariable Long id) {
-    // return ordenService.obtenerOrdenByService(id);
-    // }
 
     @PostMapping()
     public Orden crearOrden(@RequestBody Orden orden) throws UnsupportedEncodingException {
-
         return ordenService.crearOrden(orden);
-        // return null;
     }
 
     @PutMapping("/{id}")
-    public Orden actualizarOrden(@PathVariable Long id,
-            @RequestBody Orden newOrden) {
-        // URI usuariosURI = clienteEureka.getUri("USUARIOS");
-        // URI servicioUri = clienteEureka.getUri("SERVICIO");
-        // String nombre_cliente = newOrden.getCliente().getNombre();
-        // String nombre_servicio = newOrden.getServicio().getNombre();
-        // if (Optional.empty() != restTemplate.getForObject(
-        // usuariosURI.resolve("/usuario/cliente/nombre" + nombre_cliente),
-        // Object.class))
-        // && -1 !=
-        // restTemplate.getForObject(servicioUri.resolve("/servicio/stock/nombre/" +
-        // nombre_servicio),
-        // Integer.class))
-        {
-            return ordenService.actualizarOrden(id, newOrden);
-        }
-        // return null;
-
+    public Orden actualizarOrden(@PathVariable Long id, @RequestBody Orden newOrden) {
+        return ordenService.actualizarOrden(id, newOrden);
     }
+    // return null;
 
     @DeleteMapping("/{id}")
     public String eliminarOrden(@PathVariable Long id) {

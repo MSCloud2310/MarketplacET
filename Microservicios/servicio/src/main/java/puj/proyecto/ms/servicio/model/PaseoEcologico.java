@@ -21,7 +21,6 @@ public class PaseoEcologico extends Servicio {
                 proveedorId, latitud, longitud, lenguaje, clima, codigoPostal);
     }
 
-
     public PaseoEcologico(String origen, String destino, String fecha_salida, String fecha_llegada,
             String guia_turistico, String recomendaciones) {
         this.origen = origen;
