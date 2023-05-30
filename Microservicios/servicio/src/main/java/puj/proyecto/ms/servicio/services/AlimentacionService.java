@@ -35,7 +35,7 @@ public class AlimentacionService {
         // System.out.println("URL SERVICIO: " +
         // servicioUri.resolve("/servicio/nombre?name=paseo%20esoco").toString());
         Long id_proveedor = alimentacion.getId_proveedor();
-        Object cliente = restTemplate.getForObject(usuariosURI.resolve("/usuario/proveedor/" + id_proveedor),
+        Object cliente = restTemplate.getForObject(usuariosURI.resolve("usuario/proveedor/" + id_proveedor),
                 Object.class);
         if (cliente == null) {
             System.out.println("Status: Proveedor no existe");
