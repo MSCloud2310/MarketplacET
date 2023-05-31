@@ -1,6 +1,6 @@
 Hi!
 EcoTurist
-
+Link vídeo Explicando sistema:https://youtu.be/muocy6xaHgg
 correr ## Compilar cliente.
 ```console
 mvn exec:java -D co.edu.javeriana.ws.rest.client.RestClientMain
