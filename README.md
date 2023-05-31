@@ -1,6 +1,8 @@
 Hi!
 EcoTurist
-Link vídeo Explicando sistema:https://youtu.be/muocy6xaHgg
+
+
+Link vídeo Explicando sistema:https://www.youtube.com/playlist?list=PLCawRTEx1FbJuiFbrkCtVYJCTnPiUi4q1
 
 ## Compilar cliente.
 ```console
