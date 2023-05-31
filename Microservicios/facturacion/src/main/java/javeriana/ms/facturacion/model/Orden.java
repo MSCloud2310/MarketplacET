@@ -29,8 +29,6 @@ public class Orden {
 
     private String fecha_fin;
 
-    private String clima;
-
     @JsonProperty("dias")
     private Integer numDias;
 
@@ -55,33 +53,30 @@ public class Orden {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orden")
     private List<OrdenItem> ordenItems;
 
-    public Orden(String ordenNo, String fecha_inicio, String fecha_fin, String clima, List<OrdenItem> ordenItems) {
+    public Orden(String ordenNo, String fecha_inicio, String fecha_fin, List<OrdenItem> ordenItems) {
         this.ordenNo = ordenNo;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
-        this.clima = clima;
         this.ordenItems = ordenItems;
     }
 
-    public Orden(String ordenNo, String fecha_inicio, String fecha_fin, String clima, List<Servicio> listaServicios,
+    public Orden(String ordenNo, String fecha_inicio, String fecha_fin, List<Servicio> listaServicios,
             String nombreCliente,
             String numeroCedula) {
         this.ordenNo = ordenNo;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
-        this.clima = clima;
         this.listaServicios = listaServicios;
         this.nombreCliente = nombreCliente;
         this.numeroCedula = numeroCedula;
     }
 
-    public Orden(String ordenNo, String fecha_inicio, String fecha_fin, String clima, List<Servicio> listaServicios,
+    public Orden(String ordenNo, String fecha_inicio, String fecha_fin, List<Servicio> listaServicios,
             String nombreCliente, String numeroCedula,
             Integer cantidad, BigDecimal precio) {
         this.ordenNo = ordenNo;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
-        this.clima = clima;
         this.listaServicios = listaServicios;
         this.nombreCliente = nombreCliente;
         this.numeroCedula = numeroCedula;
@@ -187,13 +182,4 @@ public class Orden {
     public void setNumDias(Integer numDias) {
         this.numDias = numDias;
     }
-
-    public String getClima() {
-        return clima;
-    }
-
-    public void setClima(String clima) {
-        this.clima = clima;
-    }
-
 }

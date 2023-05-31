@@ -18,11 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import com.google.common.collect.MapMaker;
-import com.google.maps.StaticMapsApi;
-import com.google.maps.model.LatLng;
-
 import puj.proyecto.ms.servicio.model.Alimentacion;
 import puj.proyecto.ms.servicio.model.Alojamiento;
 import puj.proyecto.ms.servicio.model.PaseoEcologico;

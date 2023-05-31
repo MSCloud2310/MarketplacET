@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -111,9 +113,10 @@ public class OrdenService {
     // }
 
     public Orden crearOrden(Orden orden) throws UnsupportedEncodingException {
-        Orden newOrden = null;
+        List<Servicio> servicioObtenidos = new ArrayList<>(); // Inicializar como lista vacía en lugar de null
+        Servicio servicioObtenido;
         String cedula_cliente = orden.getNumeroCedula();
-        Object cliente = restTemplate.getForObject(environment.getProperty("urlCliente")+ cedula_cliente,
+        Object cliente = restTemplate.getForObject(environment.getProperty("urlCliente") + cedula_cliente,
                 Object.class);
         if (cliente == null) {
             System.out.println("Status: Cliente no existe");
@@ -125,34 +128,38 @@ public class OrdenService {
                     .queryParam("name", name)
                     .build(true)
                     .toUri();
-
+    
             // Realizar la solicitud GET y obtener la respuesta en un objeto de tipo
             LinkedHashMap<String, Object> respuestaMap = restTemplate.getForObject(uri, LinkedHashMap.class);
-
-            // System.out.println(servicioOptional.getNombre());
+            ObjectMapper objectMapper = new ObjectMapper();
+            servicioObtenido = objectMapper.convertValue(respuestaMap, Servicio.class);
+            System.out.println("Servicio obtenido: " + servicioObtenido.toString());
+            servicioObtenidos.add(servicioObtenido);
+    
             if (null == respuestaMap) {
                 System.out.println("Status: Producto no existe");
                 return null;
             }
-
-            newOrden = ordenRepository.save(orden);
-
-            // Convertir el objeto LinkedHashMap a un objeto de la clase Servicio
-            ObjectMapper objectMapper = new ObjectMapper();
-            Servicio servicioObtenido = objectMapper.convertValue(respuestaMap, Servicio.class);
-
-            OrdenItem newOrdenItem = new OrdenItem();
+        }
+    
+        List<Servicio> lista = servicioObtenidos;
+    
+        orden.setListaServicios(lista);
+    
+        Orden newOrden = ordenRepository.save(orden);
+        OrdenItem newOrdenItem = new OrdenItem();
+    
+        for (Servicio servicio : newOrden.getListaServicios()) {
             newOrdenItem.setOrden(newOrden);
             newOrdenItem.setCantidad(orden.getCantidad());
             newOrdenItem.setPrecio(orden.getPrecio());
-            newOrdenItem.setId_servicio(servicioObtenido.getId());
-
-            ordenItemService.crearOrden(newOrdenItem);
+            newOrdenItem.setId_servicio(servicio.getId());
         }
-
+        ordenItemService.crearOrden(newOrdenItem);
+    
         return newOrden;
     }
-
+    
     public Orden actualizarOrden(Long id, Orden newOrden) {
         Orden orden = ordenRepository.findById(id).orElseThrow();
 
